@@ -1,6 +1,13 @@
+/*----------------------------------------------------*\
+|                                                      |
+|    ///////////////////////\\\\\\\\\\\\\\\\\\\\\\\    |
+|   //      Copyright (c) 2020 Shoghi Simon       \\   |
+|   \\   License: GNU GENERAL PUBLIC LICENSE V3   //   |
+|    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
+|                                                      |
+\*----------------------------------------------------*/
 package uwu.smsgamer.lwjgltest.gui.click.parts.buttons;
 
-import uwu.smsgamer.lwjgltest.gui.click.Part;
 import uwu.smsgamer.lwjgltest.gui.click.parts.*;
 import uwu.smsgamer.lwjgltest.stuff.ValStuff;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
@@ -108,6 +115,7 @@ public class ChoicePart extends EditPart {
 
     static class Choice extends EditPart {
         String choice;
+
         public Choice(ValStuff valStuff, String choice, Category category, Module module, int inside) {
             super(valStuff, category, module, inside);
             this.choice = choice;
@@ -119,7 +127,7 @@ public class ChoicePart extends EditPart {
             if (y > category.y - Category.mainSize[1]) return;
             drawMainBox(x, y, this.valStuff.value.equals(choice) ? MAIN_COLOR_SELECT : hover() ? MAIN_COLOR_HOVER : MAIN_COLOR);
             RenderUtils.drawString(choice, x + Category.mainSize[0] / 2f + inside,
-              y + Category.mainSize[1]/2F,
+              y + Category.mainSize[1] / 2F,
               new float[]{-250, Math.max(maxY, y)}, new float[]{250, y + Category.mainSize[1]},
               0.1f, Color.WHITE);
         }

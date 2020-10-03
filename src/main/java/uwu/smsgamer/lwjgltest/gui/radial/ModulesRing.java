@@ -1,3 +1,11 @@
+/*----------------------------------------------------*\
+|                                                      |
+|    ///////////////////////\\\\\\\\\\\\\\\\\\\\\\\    |
+|   //      Copyright (c) 2020 Shoghi Simon       \\   |
+|   \\   License: GNU GENERAL PUBLIC LICENSE V3   //   |
+|    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
+|                                                      |
+\*----------------------------------------------------*/
 package uwu.smsgamer.lwjgltest.gui.radial;
 
 import uwu.smsgamer.lwjgltest.stuff.Stuff;

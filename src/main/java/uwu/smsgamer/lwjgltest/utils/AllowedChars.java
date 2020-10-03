@@ -1,11 +1,19 @@
+/*----------------------------------------------------*\
+|                                                      |
+|    ///////////////////////\\\\\\\\\\\\\\\\\\\\\\\    |
+|   //      Copyright (c) 2020 Shoghi Simon       \\   |
+|   \\   License: GNU GENERAL PUBLIC LICENSE V3   //   |
+|    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
+|                                                      |
+\*----------------------------------------------------*/
 package uwu.smsgamer.lwjgltest.utils;
 
+//thx minecraft lol
 public class AllowedChars {
     /**
      * Array of the special characters that are allowed in any text drawing of Minecraft.
      */
     public static final char[] allowedCharactersArray = new char[]{'/', '\n', '\r', '\t', '\u0000', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':'};
-    private static final String __OBFID = "CL_00001606";
 
     public static boolean isAllowedCharacter(char character) {
         return character != 167 && character >= 32 && character != 127;

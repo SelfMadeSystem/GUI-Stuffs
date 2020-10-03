@@ -1,6 +1,13 @@
+/*----------------------------------------------------*\
+|                                                      |
+|    ///////////////////////\\\\\\\\\\\\\\\\\\\\\\\    |
+|   //      Copyright (c) 2020 Shoghi Simon       \\   |
+|   \\   License: GNU GENERAL PUBLIC LICENSE V3   //   |
+|    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
+|                                                      |
+\*----------------------------------------------------*/
 package uwu.smsgamer.lwjgltest.gui.block.blocks;
 
-import uwu.smsgamer.lwjgltest.input.MouseHelper;
 import uwu.smsgamer.lwjgltest.stuff.ValStuff;
 import uwu.smsgamer.lwjgltest.utils.*;
 

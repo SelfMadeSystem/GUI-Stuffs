@@ -33,6 +33,9 @@ public class Module extends Part {
                 case STRING:
                     editParts[i] = new StringPart(valStuff, this.category, this);
                     break;
+                case CHOICE:
+                    editParts[i] = new ChoicePart(valStuff, this, this.category, 0);
+                    break;
                 default:
                     editParts[i] = new ExPart(valStuff, this.category, this);
             }

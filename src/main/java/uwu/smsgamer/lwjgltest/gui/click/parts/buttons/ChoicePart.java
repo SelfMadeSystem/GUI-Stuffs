@@ -1,55 +1,32 @@
 package uwu.smsgamer.lwjgltest.gui.click.parts.buttons;
 
+import uwu.smsgamer.lwjgltest.gui.click.Part;
 import uwu.smsgamer.lwjgltest.gui.click.parts.*;
 import uwu.smsgamer.lwjgltest.stuff.ValStuff;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 
 import java.awt.*;
 
-public class ValuesPart extends EditPart {
-    public ValStuff[] valStuffs;
+public class ChoicePart extends EditPart {
+    public String[] options;
     public EditPart[] parts;
     public Module module;
     public boolean open;
 
-    public ValuesPart(ValStuff valStuff, Module module, Category category, int inside) {
+    public ChoicePart(ValStuff valStuff, Module module, Category category, int inside) {
         super(valStuff, category, module);
         this.module = module;
-        this.valStuffs = valStuff.values;
+        this.options = valStuff.choices;
         this.inside = inside;
         setup();
     }
 
     private void setup() {
-        this.parts = new EditPart[this.valStuffs.length];
-        ValStuff[] stuff = this.valStuffs;
-        // probably wanna like not do this here if u wanna have ur settings to be like removed or added or stuff lol
-        for (int i = 0; i < stuff.length; i++) {
-            ValStuff valStuff = stuff[i];
-            switch (valStuff.type) {
-                case VALUES:
-                    parts[i] = new ValuesPart(valStuff, this.module, this.category, inside + 2);
-                    break;
-                case NUMBER:
-                    parts[i] = new SliderPart(valStuff, this.category, this.module);
-                    parts[i].inside = inside + 2;
-                    break;
-                case BOOLEAN:
-                    parts[i] = new TogglePart(valStuff, this.category, this.module);
-                    parts[i].inside = inside + 2;
-                    break;
-                case STRING:
-                    parts[i] = new StringPart(valStuff, this.category, this.module);
-                    parts[i].inside = inside + 2;
-                    break;
-                case CHOICE:
-                    parts[i] = new ChoicePart(valStuff, this.module, this.category, this.inside);
-                    parts[i].inside = inside + 2;
-                    break;
-                default:
-                    parts[i] = new ExPart(valStuff, this.category, this.module);
-                    parts[i].inside = inside + 2;
-            }
+        this.parts = new EditPart[this.options.length];
+        String[] strings = this.options;
+        for (int i = 0; i < strings.length; i++) {
+            String choice = strings[i];
+            this.parts[i] = new Choice(this.valStuff, choice, this.category, this.module, this.inside + 1);
         }
     }
 
@@ -60,10 +37,14 @@ public class ValuesPart extends EditPart {
             RenderUtils.drawBorderedRect(x + inside * 2, Math.max(maxY, y),
               x + Category.mainSize[0], y + Category.mainSize[1],
               1, hover() ? Color.BLUE : Color.CYAN, Color.RED);
-            RenderUtils.drawString(valStuff.name, x + Category.mainSize[0] / 2f,
-              y + Category.mainSize[1] / 2F,
+            RenderUtils.drawString(valStuff.name, x + Category.mainSize[0] / 2f + inside,
+              y + Category.mainSize[1] / 1.5F,
               new float[]{-250, Math.max(maxY, y)}, new float[]{250, y + Category.mainSize[1]},
-              0.1f, Color.WHITE);
+              0.07f, Color.WHITE);
+            RenderUtils.drawString(String.valueOf(valStuff.value), x + Category.mainSize[0] / 2f + inside,
+              y + Category.mainSize[1] / 4F,
+              new float[]{-250, Math.max(maxY, y)}, new float[]{250, y + Category.mainSize[1]},
+              0.04f, Color.WHITE);
         }
         if (open) {
             float kk = y + category.yAdd;
@@ -121,6 +102,33 @@ public class ValuesPart extends EditPart {
         if (open) {
             for (EditPart editPart : parts) {
                 editPart.unclick(button);
+            }
+        }
+    }
+
+    static class Choice extends EditPart {
+        String choice;
+        public Choice(ValStuff valStuff, String choice, Category category, Module module, int inside) {
+            super(valStuff, category, module, inside);
+            this.choice = choice;
+        }
+
+        @Override
+        public void render(float x, float y, float maxY) {
+            super.render(x, y, maxY);
+            if (y > category.y - Category.mainSize[1]) return;
+            drawMainBox(x, y, this.valStuff.value.equals(choice) ? MAIN_COLOR_SELECT : hover() ? MAIN_COLOR_HOVER : MAIN_COLOR);
+            RenderUtils.drawString(choice, x + Category.mainSize[0] / 2f + inside,
+              y + Category.mainSize[1]/2F,
+              new float[]{-250, Math.max(maxY, y)}, new float[]{250, y + Category.mainSize[1]},
+              0.1f, Color.WHITE);
+        }
+
+        @Override
+        public void click(int button) {
+            super.click(button);
+            if (button == 0 && hover()) {
+                this.valStuff.value = choice;
             }
         }
     }

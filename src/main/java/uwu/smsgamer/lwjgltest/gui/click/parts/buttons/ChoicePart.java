@@ -36,7 +36,7 @@ public class ChoicePart extends EditPart {
         if (!(y > category.y - Category.mainSize[1])) {
             RenderUtils.drawBorderedRect(x + inside * 2, Math.max(maxY, y),
               x + Category.mainSize[0], y + Category.mainSize[1],
-              1, hover() ? Color.BLUE : Color.CYAN, Color.RED);
+              1, hover() ? Color.DARK_GRAY : Color.GRAY, Color.RED);
             RenderUtils.drawString(valStuff.name, x + Category.mainSize[0] / 2f + inside,
               y + Category.mainSize[1] / 1.5F,
               new float[]{-250, Math.max(maxY, y)}, new float[]{250, y + Category.mainSize[1]},

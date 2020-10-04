@@ -130,6 +130,8 @@ public class RenderUtils {
         drawCircle0(x2 - round, y2 - round, round, 0, 0, 90, 0, 10, edgeColor);
         drawCircle0(x1 + round, y2 - round, round, 0, 90, 180, 0, 10, edgeColor);
         glColor4f(main.getRed() / 255f, main.getGreen() / 255f, main.getBlue() / 255f, main.getAlpha() / 255f);
+        round -= edgeRadius;
+        round = Math.max(0, round);
         drawRectUnDiv(x1 + edgeRadius, y1 + edgeRadius + round, x2 - edgeRadius, y2 - edgeRadius - round, main);
         drawRectUnDiv(x1 + edgeRadius + round, y1 + edgeRadius, x2 - edgeRadius - round, y2 - edgeRadius, main);
         drawCircle0(x1 + round + edgeRadius, y1 + round + edgeRadius, round, 0, 180, 270, 0, 10, main);
@@ -157,27 +159,34 @@ public class RenderUtils {
     }
 
     public static void drawString(String text, float x, float y, float[] min, float[] max, float size, Color color) {
+        drawString(text, x, y, min, max, size, size, color);
+    }
+
+    public static void drawString(String text, float x, float y, float[] min, float[] max, float sizeX, float sizeY, Color color) {
         x /= div;
         y /= div;
         min[0] /= div;
         min[1] /= div;
         max[0] /= div;
         max[1] /= div;
-        drawString0(text, x, y, min, max, size, color);
+        drawString0(text, x, y, min, max, sizeX, sizeY, color);
     }
 
     public static void drawString(String text, float x, float y, float size, Color color) {
+        drawString(text, x, y, size, size, color);
+    }
+    public static void drawString(String text, float x, float y, float sizeX, float sizeY, Color color) {
         x /= div;
         y /= div;
-        drawString0(text, x, y, new float[]{-2, -2}, new float[]{2, 2}, size, color);
+        drawString0(text, x, y, new float[]{-2, -2}, new float[]{2, 2}, sizeX, sizeY, color);
     }
 
-    public static void drawString0(String text, float x, float y, float[] min, float[] max, float size, Color color) {
+    public static void drawString0(String text, float x, float y, float[] min, float[] max, float sizeX, float sizeY, Color color) {
         Font font = new Font("Monospaced", Font.PLAIN, 1);
         GlyphVector vector = font.createGlyphVector(new FontRenderContext(new AffineTransform(), false, false), text);
         Rectangle2D rect = vector.getVisualBounds();
-        y -= rect.getHeight() / 2 * size;
-        x -= rect.getWidth() / 2 * size;
+        x -= rect.getWidth() / 2 * sizeX;
+        y -= rect.getHeight() / 2 * sizeY;
         Shape outline = vector.getOutline();
         PathIterator pathIterator = outline.getPathIterator(new AffineTransform());
         glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
@@ -188,15 +197,15 @@ public class RenderUtils {
             switch (code) {
                 case PathIterator.SEG_LINETO:
                 case PathIterator.SEG_MOVETO: {
-                    glVertex2f(Math.min(max[0], Math.max(min[0], points[0] * size + x)),
-                      Math.min(max[1], Math.max(min[1], -points[1] * size + y)));
+                    glVertex2f(Math.min(max[0], Math.max(min[0], points[0] * sizeX + x)),
+                      Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y)));
                     break;
                 }
                 case PathIterator.SEG_QUADTO: {
-                    glVertex2f(Math.min(max[0], Math.max(min[0], points[0] * size + x)),
-                      Math.min(max[1], Math.max(min[1], -points[1] * size + y)));
-                    glVertex2f(Math.min(max[0], Math.max(min[0], points[2] * size + x)),
-                      Math.min(max[1], Math.max(min[1], -points[3] * size + y)));
+                    glVertex2f(Math.min(max[0], Math.max(min[0], points[0] * sizeX + x)),
+                      Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y)));
+                    glVertex2f(Math.min(max[0], Math.max(min[0], points[2] * sizeX + x)),
+                      Math.min(max[1], Math.max(min[1], -points[3] * sizeY + y)));
                     //glVertex2f(points[4] / max * size + x, -points[5] / max * size + y);
                     //eps.curveto(points[0] + x, points[1] + y, points[2] + x, points[3] + y, points[4] + x, points[5] + y);
                     break;

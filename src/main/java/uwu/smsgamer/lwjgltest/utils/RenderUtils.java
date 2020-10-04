@@ -93,6 +93,7 @@ public class RenderUtils {
         y1 /= div;
         y2 /= div;
         edgeRadius /= div;
+        if (Math.abs(x1 - x2) < edgeRadius || Math.abs(y1 - y2) < edgeRadius) main = edgeColor;
         drawRectUnDiv(x1, y1, x2, y2, edgeColor);
         drawRectUnDiv(x1, y1, x2, y2, edgeColor);
         glColor4f(main.getRed() / 255f, main.getGreen() / 255f, main.getBlue() / 255f, main.getAlpha() / 255f);

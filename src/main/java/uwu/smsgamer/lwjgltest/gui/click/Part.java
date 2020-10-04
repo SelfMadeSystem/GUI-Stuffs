@@ -13,6 +13,12 @@ import uwu.smsgamer.lwjgltest.gui.click.parts.CategoryPart;
 import java.awt.*;
 
 public abstract class Part {
+    public static int[] topSize = new int[]{160, 20};
+    public static int[] mainSize = new int[]{150, 30};
+    public static float maxLength = 300;
+
+    public static float edgeRadius = 2;
+
     public static Color TOP_COLOR = Color.blue;
     public static Color TOP_COLOR_HOVER = Color.cyan;
     public static Color TOP_BORDER_COLOR = Color.red;
@@ -82,7 +88,8 @@ public abstract class Part {
 
     public boolean hovering() {
         return this.category.hoverRaw(getX() - getSize()[0] / 2F, getX() + getSize()[0] / 2F,
-          getY() - getSize()[1] / 2F, getY() + getSize()[1] / 2F);
+          Math.max(category.y - maxLength, getY() - getSize()[1] / 2F),
+          Math.min(category.y - category.getSize()[1]/2F, getY() + getSize()[1] / 2F));
     }
 
     public int[] getSize() {

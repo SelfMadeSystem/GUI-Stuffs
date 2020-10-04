@@ -17,12 +17,10 @@ import java.awt.*;
 import java.util.*;
 
 public class CategoryPart extends Part {
-    public static int[] topSize = new int[]{160, 20};
-    public static int[] mainSize = new int[]{150, 30};
-    public static float maxLength = 300;
     public ModulePart[] modules;
     public float x, y;
     public float yAdd;
+    public float scroll;
 
     public CategoryPart(int index, String name) {
         super(name, null);
@@ -49,7 +47,7 @@ public class CategoryPart extends Part {
             this.x = Math.min(250 - getSize()[0] / 2F, Math.max(-250 + getSize()[0] / 2F, this.x));
             this.y = Math.min(250 - getSize()[1] / 2F, Math.max(-250 + getSize()[1] / 2F, this.y));
         }
-        this.yAdd = getSize()[1] / 2F;
+        this.yAdd = getSize()[1] / 2F - scroll;
         if (this.open) {
             for (ModulePart module : this.modules) {
                 module.render(this.x, this.y, this.y - maxLength);
@@ -66,9 +64,10 @@ public class CategoryPart extends Part {
           -getSize()[1] / 2F, getSize()[1] / 2F);
     }
 
-    /*public boolean hoveringModules() {
-        return opened && hover(0, mainSize[0], -mainSize[1] * getMaxItems(), -mainSize[1]);
-    }*/
+    public boolean hoveringModules() {
+        return open && hover(-getSize()[0] / 2F, getSize()[0] / 2F,
+          -getSize()[1] / 2F - Math.min(maxLength, this.yAdd), -getSize()[1] / 2F);
+    }
 
     public boolean hover(double minX, double maxX, double minY, double maxY) {
         return hoverRaw(this.x + minX, this.x + maxX, this.y + minY, this.y + maxY);
@@ -92,6 +91,7 @@ public class CategoryPart extends Part {
     @Override
     public void close() {
         super.close();
+        this.scroll = 0;
         for (ModulePart module : modules) {
             module.close();
         }
@@ -134,14 +134,24 @@ public class CategoryPart extends Part {
         }
     }
 
+    private long lastScroll = 0;
+
     @Override
     public void scroll(double amount) {
         super.scroll(amount);
-        if (open) {
+        if (hoveringModules()) {
+            //float limit = this.yAdd - scroll;
+            scroll = (float) (scroll + amount * (230 + Math.max(-200, lastScroll - System.currentTimeMillis())) / 30);
+            //System.out.println(limit + " " + scroll);
+            //if (scroll > limit) scroll = limit;
+            /*else*/ if (scroll < 0) scroll = 0;
+            lastScroll = System.currentTimeMillis();
+        }
+        /*if (open) {
             for (ModulePart module : modules) {
                 module.scroll(amount);
             }
-        }
+        }*/
     }
 
     @Override

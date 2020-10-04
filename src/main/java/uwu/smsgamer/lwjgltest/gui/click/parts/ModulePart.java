@@ -9,6 +9,7 @@
 package uwu.smsgamer.lwjgltest.gui.click.parts;
 
 import uwu.smsgamer.lwjgltest.gui.click.*;
+import uwu.smsgamer.lwjgltest.gui.click.parts.vals.*;
 import uwu.smsgamer.lwjgltest.stuff.*;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 
@@ -25,20 +26,20 @@ public class ModulePart extends Part {
         for (int i = 0; i < valStuffs.length; i++) {
             ValStuff valStuff = valStuffs[i];
             switch (valStuff.type) {
-                /*case VALUES:
-                    parts[i] = new ValuesPart(valStuff, this, this.category, 0);
+                case VALUES:
+                    parts[i] = new ValuesPart(this.category, valStuff, this, 0);
                     break;
-                case NUMBER:
-                    parts[i] = new SliderPart(valStuff, this.category, this);
+                /*case NUMBER:
+                    parts[i] = new SliderPart(this.category, valStuff, this, 0);
                     break;
                 case BOOLEAN:
-                    parts[i] = new TogglePart(valStuff, this.category, this);
+                    parts[i] = new TogglePart(this.category, valStuff, this, 0);
                     break;
                 case STRING:
-                    parts[i] = new StringPart(valStuff, this.category, this);
+                    parts[i] = new StringPart(this.category, valStuff, this, 0);
                     break;
                 case CHOICE:
-                    parts[i] = new ChoicePart(valStuff, this, this.category, 0);
+                    parts[i] = new ChoicePart(this.category, valStuff, this, 0);
                     break;*/
                 default:
                     parts[i] = new PPart(this.category, valStuff, this, 0);
@@ -55,10 +56,15 @@ public class ModulePart extends Part {
             }
         }
 
-        RenderUtils.drawBorderedRect(getX() - getSize()[0] / 2F, getY() - getSize()[1] / 2F,
-          getX() + getSize()[0] / 2F, getY() + getSize()[1] / 2F, 2,
-          hovering() ? MAIN_COLOR_HOVER : MAIN_COLOR, BORDER_COLOR);
-        RenderUtils.drawString(this.name, getX(), getY(), 0.1F, Color.BLACK);
+        if (getY() + getSize()[1] / 2F > maxY &&
+          getY() - getSize()[1] / 2F < category.y + category.getSize()[1]/2F) {
+            RenderUtils.drawBorderedRect(getX() - getSize()[0] / 2F,
+              Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
+              getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
+              hovering() ? MAIN_COLOR_HOVER : MAIN_COLOR, BORDER_COLOR);
+            RenderUtils.drawString(this.name, getX(), getY(), new float[]{-5000, maxY + edgeRadius},
+              new float[]{5000, category.y}, 0.1F, Color.WHITE);
+        }
     }
 
     boolean justOpened;

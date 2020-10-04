@@ -26,8 +26,6 @@ public class PPart extends ValPart {
     @Override
     public void render(float x, float y, float maxY) {
         super.render(x, y, maxY);
-
-
         if (getY() + getSize()[1] / 2F > maxY &&
           getY() - getSize()[1] / 2F < category.y + category.getSize()[1] / 2F) {
             RenderUtils.drawBorderedRect(getX() - getSize()[0] / 2F + indent * 2,

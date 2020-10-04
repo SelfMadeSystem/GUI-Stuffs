@@ -9,6 +9,7 @@
 package uwu.smsgamer.lwjgltest.gui.click;
 
 import uwu.smsgamer.lwjgltest.gui.click.parts.CategoryPart;
+import uwu.smsgamer.lwjgltest.input.MouseHelper;
 
 import java.awt.*;
 
@@ -94,5 +95,17 @@ public abstract class Part {
 
     public int[] getSize() {
         return CategoryPart.mainSize;
+    }
+
+    public static double getRangeX(double minX, double maxX) {
+        int mouseX = MouseHelper.posX - 250;
+        double delta = maxX - minX;
+        return Math.min(1, Math.max(0, (mouseX - (minX)) / delta));
+    }
+
+    public static double getRangeY(double minY, double maxY) {
+        int mouseY = MouseHelper.posY - 250;
+        double delta = maxY - minY;
+        return Math.min(1, Math.max(0, (mouseY - (minY)) / delta));
     }
 }

@@ -59,29 +59,9 @@ public class CategoryPart extends Part {
         RenderUtils.drawString(this.name, this.x, this.y, 0.09F, 0.06F, Color.BLACK);
     }
 
-    public boolean hoveringTop() {
-        return hover(-getSize()[0] / 2F, getSize()[0] / 2F,
-          -getSize()[1] / 2F, getSize()[1] / 2F);
-    }
-
-    public boolean hoveringModules() {
-        return open && hover(-getSize()[0] / 2F, getSize()[0] / 2F,
-          -getSize()[1] / 2F - Math.min(maxLength, this.yAdd), -getSize()[1] / 2F);
-    }
-
-    public boolean hover(double minX, double maxX, double minY, double maxY) {
-        return hoverRaw(this.x + minX, this.x + maxX, this.y + minY, this.y + maxY);
-    }
-
-    public boolean hoverRaw(double minX, double maxX, double minY, double maxY) {
-        int mouseX = MouseHelper.posX - 250;
-        int mouseY = -MouseHelper.posY + 250;
-        return (mouseX > minX && mouseX < maxX) && (mouseY > minY && mouseY < maxY);
-    }
-
     boolean justOpened = false;
-    boolean clicking = false;
 
+    boolean clicking = false;
     @Override
     public void open() {
         super.open();
@@ -177,5 +157,25 @@ public class CategoryPart extends Part {
     @Override
     public int[] getSize() {
         return topSize;
+    }
+
+    public boolean hoveringTop() {
+        return hover(-getSize()[0] / 2F, getSize()[0] / 2F,
+          -getSize()[1] / 2F, getSize()[1] / 2F);
+    }
+
+    public boolean hoveringModules() {
+        return open && hover(-getSize()[0] / 2F, getSize()[0] / 2F,
+          -getSize()[1] / 2F - Math.min(maxLength, this.yAdd), -getSize()[1] / 2F);
+    }
+
+    public boolean hover(double minX, double maxX, double minY, double maxY) {
+        return hoverRaw(this.x + minX, this.x + maxX, this.y + minY, this.y + maxY);
+    }
+
+    public boolean hoverRaw(double minX, double maxX, double minY, double maxY) {
+        int mouseX = MouseHelper.posX - 250;
+        int mouseY = -MouseHelper.posY + 250;
+        return (mouseX > minX && mouseX < maxX) && (mouseY > minY && mouseY < maxY);
     }
 }

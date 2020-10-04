@@ -37,9 +37,9 @@ public class ValuesPart extends ValPart {
                 case BOOLEAN:
                     parts[i] = new TogglePart(this.category, vs, this.module, indent + 1);
                     break;
-                /*case NUMBER:
+                case NUMBER:
                     parts[i] = new SliderPart(this.category, vs, this.module, indent + 1);
-                    break;
+                    break;/*
                 case STRING:
                     parts[i] = new StringPart(this.category, vs, this.module, indent + 1);
                     break;

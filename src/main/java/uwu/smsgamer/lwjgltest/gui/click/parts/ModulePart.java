@@ -32,9 +32,9 @@ public class ModulePart extends Part {
                 case BOOLEAN:
                     parts[i] = new TogglePart(this.category, valStuff, this, 0);
                     break;
-                /*case NUMBER:
+                case NUMBER:
                     parts[i] = new SliderPart(this.category, valStuff, this, 0);
-                    break;
+                    break;/*
                 case STRING:
                     parts[i] = new StringPart(this.category, valStuff, this, 0);
                     break;

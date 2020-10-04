@@ -14,7 +14,6 @@ import org.lwjgl.opengl.GL;
 import uwu.smsgamer.lwjgltest.Main;
 import uwu.smsgamer.lwjgltest.gui.block.BlockManager;
 import uwu.smsgamer.lwjgltest.gui.click.ClickGUIManager;
-import uwu.smsgamer.lwjgltest.gui.oldclick.OldClickGUIManager;
 import uwu.smsgamer.lwjgltest.gui.radial.Ring;
 import uwu.smsgamer.lwjgltest.input.*;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
@@ -97,11 +96,6 @@ public class Window {
     private void renderClick() {
         RenderUtils.div = 250f;
         ClickGUIManager.getInstance().render();
-    }
-
-    private void renderOldClick() {
-        RenderUtils.div = 250f;
-        OldClickGUIManager.getInstance().render();
     }
 
     private void renderBlock() {

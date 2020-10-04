@@ -12,7 +12,6 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.*;
 import uwu.smsgamer.lwjgltest.gui.block.BlockManager;
 import uwu.smsgamer.lwjgltest.gui.click.ClickGUIManager;
-import uwu.smsgamer.lwjgltest.gui.oldclick.OldClickGUIManager;
 import uwu.smsgamer.lwjgltest.gui.radial.Ring;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -40,13 +39,12 @@ public class InputManager {
          * Will be called when a Unicode character is input.
          *
          * @param window the window that received the event
-         * @param codepoint the Unicode code point of the character
+         * @param c the Unicode code point of the character
          */
         @Override
         public void invoke(long window, int c) {
             Ring.getCurrentRing().charKey((char) c);
             BlockManager.getInstance().charKey((char) c);
-            OldClickGUIManager.getInstance().charKey((char) c);
             ClickGUIManager.getInstance().charKey((char) c);
         }
     }
@@ -67,7 +65,6 @@ public class InputManager {
             if (action != GLFW_RELEASE) {
                 Ring.getCurrentRing().key(key);
                 BlockManager.getInstance().key(key);
-                OldClickGUIManager.getInstance().key(key);
                 ClickGUIManager.getInstance().key(key);
             }
         }

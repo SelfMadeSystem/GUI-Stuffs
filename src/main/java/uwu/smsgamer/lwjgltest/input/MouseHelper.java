@@ -12,15 +12,17 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWScrollCallbackI;
 import uwu.smsgamer.lwjgltest.Main;
 import uwu.smsgamer.lwjgltest.gui.click.ClickGUIManager;
-import uwu.smsgamer.lwjgltest.gui.oldclick.OldClickGUIManager;
 
 import java.nio.DoubleBuffer;
-import static org.lwjgl.glfw.GLFW.*;
+
+import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
+import static org.lwjgl.glfw.GLFW.glfwGetMouseButton;
 
 public class MouseHelper {
     public static int posX, posY;
     public static int deltaX, deltaY;
     public static boolean left, right, middle;
+
     public static void update() {
         DoubleBuffer x = BufferUtils.createDoubleBuffer(1);
         DoubleBuffer y = BufferUtils.createDoubleBuffer(1);
@@ -45,7 +47,6 @@ public class MouseHelper {
          */
         @Override
         public void invoke(long window, double xoffset, double yoffset) {
-            OldClickGUIManager.getInstance().scroll(yoffset);
             ClickGUIManager.getInstance().scroll(yoffset);
         }
     }

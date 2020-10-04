@@ -9,8 +9,7 @@
 package uwu.smsgamer.lwjgltest.gui.click;
 
 import lombok.Getter;
-import uwu.smsgamer.lwjgltest.gui.click.parts.Category;
-import uwu.smsgamer.lwjgltest.gui.click.parts.buttons.EditPart;
+import uwu.smsgamer.lwjgltest.gui.click.parts.CategoryPart;
 import uwu.smsgamer.lwjgltest.input.MouseHelper;
 import uwu.smsgamer.lwjgltest.stuff.Stuff;
 
@@ -29,17 +28,17 @@ public class ClickGUIManager {
         categories = new ArrayList<>();
         for (int i = 0; i < strings.length; i++) {
             String s = strings[i];
-            categories.add(new Category(i, s));
+            categories.add(new CategoryPart(i, s));
         }
     }
 
     @Getter
-    private final List<Category> categories;
+    private final List<CategoryPart> categories;
     private final boolean[] click = new boolean[3];
-    public EditPart inputOverride;
+    public ValPart inputOverride;
 
     public void render() {
-        for (Category c : new ArrayList<>(categories)) {
+        for (CategoryPart c : new ArrayList<>(categories)) {
             c.render();
             if (inputOverride == null || inputOverride.category.equals(c)) {
                 if (click[0] && !MouseHelper.left) c.unclick(0);
@@ -56,7 +55,7 @@ public class ClickGUIManager {
     }
 
     public void scroll(double amount) {
-        for (Category c : new ArrayList<>(categories)) {
+        for (CategoryPart c : new ArrayList<>(categories)) {
             if (inputOverride == null || inputOverride.category.equals(c)) {
                 c.scroll(amount);
             }
@@ -65,14 +64,14 @@ public class ClickGUIManager {
 
     public void charKey(char c) {
         if (inputOverride == null) {
-            for (Category cat /* *𝑚𝑒𝑜𝑤* */: new ArrayList<>(categories))
+            for (CategoryPart cat /*𝑚𝑒𝑜𝑤*/: new ArrayList<>(categories))
                 cat.charKey(c);
         } else inputOverride.category.charKey(c);
     }
 
     public void key(int key) {
         if (inputOverride == null) {
-            for (Category c : new ArrayList<>(categories))
+            for (CategoryPart c : new ArrayList<>(categories))
                 c.key(key);
         } else inputOverride.category.key(key);
     }

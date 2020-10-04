@@ -8,28 +8,16 @@
 \*----------------------------------------------------*/
 package uwu.smsgamer.lwjgltest.gui.click;
 
-import uwu.smsgamer.lwjgltest.gui.click.parts.CategoryPart;
+import uwu.smsgamer.lwjgltest.gui.click.parts.*;
 
-public class Part {
-    public void render() {
-    }
+public class ValPart extends Part {
+    public CategoryPart category;
+    public ModulePart module;
+    public int indent;
 
-    public void scroll(double amount) {
-    }
-
-    public void click(int button) {
-    }
-
-    public void unclick(int button) {
-    }
-
-    public void charKey(char c) {
-    }
-
-    public void key(int key) {
-    }
-
-    public int[] getSize() {
-        return CategoryPart.mainSize;
+    public ValPart(CategoryPart category, ModulePart module, int indent) {
+        this.category = category;
+        this.module = module;
+        this.indent = indent;
     }
 }

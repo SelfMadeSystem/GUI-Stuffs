@@ -12,6 +12,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWScrollCallbackI;
 import uwu.smsgamer.lwjgltest.Main;
 import uwu.smsgamer.lwjgltest.gui.click.ClickGUIManager;
+import uwu.smsgamer.lwjgltest.gui.oldclick.OldClickGUIManager;
 
 import java.nio.DoubleBuffer;
 import static org.lwjgl.glfw.GLFW.*;
@@ -44,6 +45,7 @@ public class MouseHelper {
          */
         @Override
         public void invoke(long window, double xoffset, double yoffset) {
+            OldClickGUIManager.getInstance().scroll(yoffset);
             ClickGUIManager.getInstance().scroll(yoffset);
         }
     }

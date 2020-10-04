@@ -6,30 +6,22 @@
 |    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
 |                                                      |
 \*----------------------------------------------------*/
-package uwu.smsgamer.lwjgltest.gui.click;
+package uwu.smsgamer.lwjgltest.gui.click.parts;
 
-import uwu.smsgamer.lwjgltest.gui.click.parts.CategoryPart;
+import uwu.smsgamer.lwjgltest.gui.click.Part;
 
-public class Part {
-    public void render() {
+public class CategoryPart extends Part {
+    public static int[] topSize = new int[]{150, 20};
+    public static int[] mainSize = new int[]{150, 30};
+
+    public float x, y;
+
+    public CategoryPart(int index, String name) {
+
     }
 
-    public void scroll(double amount) {
-    }
-
-    public void click(int button) {
-    }
-
-    public void unclick(int button) {
-    }
-
-    public void charKey(char c) {
-    }
-
-    public void key(int key) {
-    }
-
+    @Override
     public int[] getSize() {
-        return CategoryPart.mainSize;
+        return topSize;
     }
 }

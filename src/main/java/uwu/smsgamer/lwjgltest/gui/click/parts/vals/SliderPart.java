@@ -37,7 +37,6 @@ public class SliderPart extends ValPart {
             valStuff.value = MathUtils.roundInc(value, step);
             value = ((double) valStuff.value - min) / (max - min);
         }
-        // TODO: 2020-10-04 Add slider hints.
 
         if (getY() + getSize()[1] / 2F > maxY &&
           getY() - getSize()[1] / 2F < category.y + category.getSize()[1] / 2F) {
@@ -45,10 +44,25 @@ public class SliderPart extends ValPart {
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
               hovering() && !clicking ? MAIN_COLOR_HOVER : MAIN_COLOR, BORDER_COLOR);
+            if (clicking) {
+                RenderUtils.drawRect(getX() - getSize()[0] / 2F + indent * 2 + edgeRadius,
+                  Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)) + edgeRadius,
+                  (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent - edgeRadius * 2) *
+                    Math.min(1, value + step / (max - min) * 0.5F))
+                    + edgeRadius, Math.min(category.y, getY() + getSize()[1] / 2F) - edgeRadius, SLIDER_HINT_AFTER);
+            }
             RenderUtils.drawRect(getX() - getSize()[0] / 2F + indent * 2 + edgeRadius,
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)) + edgeRadius,
               (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent - edgeRadius * 2) * value)
-                + edgeRadius, Math.min(category.y, getY() + getSize()[1] / 2F) - edgeRadius, SLIDER_COLOR);
+                + edgeRadius, Math.min(category.y, getY() + getSize()[1] / 2F) - edgeRadius,
+              hovering() && !clicking ? SLIDER_COLOR_HOVER : SLIDER_COLOR);
+            if (clicking) {
+                RenderUtils.drawRect(getX() - getSize()[0] / 2F + indent * 2 + edgeRadius,
+                  Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)) + edgeRadius,
+                  (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent - edgeRadius * 2) *
+                    Math.max(0, value - step / (max - min) * 0.5F))
+                    + edgeRadius, Math.min(category.y, getY() + getSize()[1] / 2F) - edgeRadius, SLIDER_HINT_BEFORE);
+            }
             RenderUtils.drawString(this.name, getX() + indent, getY(), new float[]{-5000, maxY + edgeRadius},
               new float[]{5000, category.y}, 0.1F, Color.WHITE);
         }

@@ -41,10 +41,10 @@ public class ValuesPart extends ValPart {
                     parts[i] = new SliderPart(this.category, vs, this.module, indent + 2);
                     break;/*
                 case STRING:
-                    parts[i] = new StringPart(this.category, vs, this.module, indent + 1);
+                    parts[i] = new StringPart(this.category, vs, this.module, indent + 2);
                     break;
                 case CHOICE:
-                    parts[i] = new ChoicePart(this.category, vs, this.module, indent + 1);
+                    parts[i] = new ChoicePart(this.category, vs, this.module, indent + 2);
                     break;*/
                 default:
                     parts[i] = new PPart(this.category, vs, this.module, indent + 2);

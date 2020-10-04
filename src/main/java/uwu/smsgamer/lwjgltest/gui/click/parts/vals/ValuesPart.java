@@ -13,7 +13,7 @@ package uwu.smsgamer.lwjgltest.gui.click.parts.vals;
 
 import uwu.smsgamer.lwjgltest.gui.click.ValPart;
 import uwu.smsgamer.lwjgltest.gui.click.parts.*;
-import uwu.smsgamer.lwjgltest.stuff.*;
+import uwu.smsgamer.lwjgltest.stuff.ValStuff;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 
 import java.awt.*;
@@ -23,6 +23,7 @@ public class ValuesPart extends ValPart {
     public static Color HOVER_COLOR = new Color(80, 80, 80);
     public static Color OPEN_COLOR = new Color(70, 70, 70);
     public ValPart[] parts;
+
     public ValuesPart(CategoryPart category, ValStuff valStuff, ModulePart module, int indent) {
         super(category, valStuff, module, indent);
         ValStuff[] valStuffs = valStuff.values;
@@ -33,11 +34,11 @@ public class ValuesPart extends ValPart {
                 case VALUES:
                     parts[i] = new ValuesPart(this.category, vs, this.module, indent + 1);
                     break;
-                /*case NUMBER:
-                    parts[i] = new SliderPart(this.category, vs, this.module, indent + 1);
-                    break;
                 case BOOLEAN:
                     parts[i] = new TogglePart(this.category, vs, this.module, indent + 1);
+                    break;
+                /*case NUMBER:
+                    parts[i] = new SliderPart(this.category, vs, this.module, indent + 1);
                     break;
                 case STRING:
                     parts[i] = new StringPart(this.category, vs, this.module, indent + 1);
@@ -61,7 +62,7 @@ public class ValuesPart extends ValPart {
         }
 
         if (getY() + getSize()[1] / 2F > maxY &&
-          getY() - getSize()[1] / 2F < category.y + category.getSize()[1]/2F) {
+          getY() - getSize()[1] / 2F < category.y + category.getSize()[1] / 2F) {
             RenderUtils.drawBorderedRect(getX() - getSize()[0] / 2F + indent * 2,
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,

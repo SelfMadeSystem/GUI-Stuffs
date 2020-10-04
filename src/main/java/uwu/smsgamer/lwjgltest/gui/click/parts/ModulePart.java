@@ -29,11 +29,11 @@ public class ModulePart extends Part {
                 case VALUES:
                     parts[i] = new ValuesPart(this.category, valStuff, this, 0);
                     break;
-                /*case NUMBER:
-                    parts[i] = new SliderPart(this.category, valStuff, this, 0);
-                    break;
                 case BOOLEAN:
                     parts[i] = new TogglePart(this.category, valStuff, this, 0);
+                    break;
+                /*case NUMBER:
+                    parts[i] = new SliderPart(this.category, valStuff, this, 0);
                     break;
                 case STRING:
                     parts[i] = new StringPart(this.category, valStuff, this, 0);

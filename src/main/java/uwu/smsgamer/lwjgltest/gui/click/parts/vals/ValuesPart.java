@@ -32,13 +32,13 @@ public class ValuesPart extends ValPart {
             ValStuff vs = valStuffs[i]; //not visual studio lol
             switch (vs.type) {
                 case VALUES:
-                    parts[i] = new ValuesPart(this.category, vs, this.module, indent + 1);
+                    parts[i] = new ValuesPart(this.category, vs, this.module, indent + 2);
                     break;
                 case BOOLEAN:
-                    parts[i] = new TogglePart(this.category, vs, this.module, indent + 1);
+                    parts[i] = new TogglePart(this.category, vs, this.module, indent + 2);
                     break;
                 case NUMBER:
-                    parts[i] = new SliderPart(this.category, vs, this.module, indent + 1);
+                    parts[i] = new SliderPart(this.category, vs, this.module, indent + 2);
                     break;/*
                 case STRING:
                     parts[i] = new StringPart(this.category, vs, this.module, indent + 1);
@@ -47,7 +47,7 @@ public class ValuesPart extends ValPart {
                     parts[i] = new ChoicePart(this.category, vs, this.module, indent + 1);
                     break;*/
                 default:
-                    parts[i] = new PPart(this.category, vs, this.module, indent + 1);
+                    parts[i] = new PPart(this.category, vs, this.module, indent + 2);
             }
         }
     }

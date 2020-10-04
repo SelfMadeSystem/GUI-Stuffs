@@ -6,16 +6,17 @@
 |    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
 |                                                      |
 \*----------------------------------------------------*/
-package uwu.smsgamer.lwjgltest.gui.click.parts.buttons;
+package uwu.smsgamer.lwjgltest.gui.oldclick.parts.buttons;
 
-import uwu.smsgamer.lwjgltest.gui.click.ClickGUIManager;
-import uwu.smsgamer.lwjgltest.gui.click.parts.*;
+import uwu.smsgamer.lwjgltest.gui.oldclick.OldClickGUIManager;
+import uwu.smsgamer.lwjgltest.gui.oldclick.parts.*;
 import uwu.smsgamer.lwjgltest.input.MouseHelper;
 import uwu.smsgamer.lwjgltest.stuff.ValStuff;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 
 import java.awt.*;
 
+@Deprecated
 public abstract class EditPart {
     protected static Color MAIN_COLOR = Color.lightGray;
     protected static Color MAIN_COLOR_HOVER = Color.gray;
@@ -81,7 +82,7 @@ public abstract class EditPart {
     public boolean hover() {
         return category.hoverRaw(x + inside * 2, x + Category.mainSize[0],
           Math.max(maxY, y), y + Category.mainSize[1]) &&
-          (ClickGUIManager.getInstance().inputOverride == null || ClickGUIManager.getInstance().inputOverride.equals(this));
+          (OldClickGUIManager.getInstance().inputOverride == null || OldClickGUIManager.getInstance().inputOverride.equals(this));
     }
     public double getRangeX(double minX, double maxX) {
         int mouseX = MouseHelper.posX - 250;
@@ -108,5 +109,9 @@ public abstract class EditPart {
 
     public void drawMainBox(float x, float y) {
         drawMainBox(x, y, MAIN_COLOR);
+    }
+
+    public int[] getSize() {
+        return Category.mainSize;
     }
 }

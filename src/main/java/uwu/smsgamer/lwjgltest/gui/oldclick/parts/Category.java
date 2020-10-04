@@ -6,9 +6,9 @@
 |    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
 |                                                      |
 \*----------------------------------------------------*/
-package uwu.smsgamer.lwjgltest.gui.click.parts;
+package uwu.smsgamer.lwjgltest.gui.oldclick.parts;
 
-import uwu.smsgamer.lwjgltest.gui.click.*;
+import uwu.smsgamer.lwjgltest.gui.oldclick.*;
 import uwu.smsgamer.lwjgltest.input.MouseHelper;
 import uwu.smsgamer.lwjgltest.stuff.Stuff;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
@@ -16,8 +16,10 @@ import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 import java.awt.*;
 import java.util.*;
 
+@Deprecated
 public class Category extends Part {
 
+    public static final int[] topSize = new int[]{150, 20};
     public static final int[] mainSize = new int[]{150, 30};
     public static final int maxItems = 10; //includes top thingy
     public float x, y;
@@ -54,50 +56,50 @@ public class Category extends Part {
         if (clicked) {
             x -= MouseHelper.deltaX;
             y += MouseHelper.deltaY;
-            if (x > (250 - mainSize[0]) || x < -250)
+            if (x > (250 - getSize()[0]) || x < -250)
                 y -= MouseHelper.deltaY / 2F;
-            if (y > (250) || y < -250 + mainSize[0])
+            if (y > (250) || y < -250 + getSize()[0])
                 x -= MouseHelper.deltaX / 2F;
-            x = Math.min(250 - mainSize[0], Math.max(-250, x));
-            y = Math.min(250, Math.max(-250 + mainSize[1], y));
+            x = Math.min(250 - getSize()[0], Math.max(-250, x));
+            y = Math.min(250, Math.max(-250 + getSize()[1], y));
         }
         hoverModule = -1;
         yAdd = 0;
         if (opened) {
             for (int i = 0; i < modules.length; i++) {
-                float minY = Math.max(0, mainSize[1] * (i + 1) - scroll + yAdd);
-                float maxY = Math.min(mainSize[1] * (i + 2) - scroll + yAdd, getMaxItems() * mainSize[1]);
-                if (minY >= getMaxItems() * mainSize[1]) break;
+                Module module = modules[i];
+                float minY = Math.max(0, module.getSize()[1] * (i + 1) - scroll + yAdd);
+                float maxY = Math.min(module.getSize()[1] * (i + 2) - scroll + yAdd, getMaxItems() * module.getSize()[1]);
+                if (minY >= getMaxItems() * module.getSize()[1]) break;
+                
                 if (maxY <= 0) {
                     if (modules[i].open) {
-                        modules[i].render(y - mainSize[1] * (i + 2) + scroll - yAdd);
-                        yAdd += mainSize[1] * (modules[i].valStuff.length);
+                        modules[i].render(y - module.getSize()[1] * (i + 2) + scroll - yAdd);
+                        yAdd += module.getSize()[1] * (modules[i].valStuff.length);
                     }
                     continue;
                 }
 
-                Module module = modules[i];
-                boolean hovered = hover(0, mainSize[0], -maxY, -minY) && ClickGUIManager.getInstance().inputOverride == null;
+                boolean hovered = hover(0, module.getSize()[0], -maxY, -minY) && OldClickGUIManager.getInstance().inputOverride == null;
                 if (hovered) hoverModule = i;
-                RenderUtils.drawBorderedRect(x, y - maxY, x + mainSize[0], y - minY,
+                RenderUtils.drawBorderedRect(x, y - maxY, x + module.getSize()[0], y - minY,
                   1, hovered ? Color.LIGHT_GRAY : Color.GRAY, Color.RED); // TODO: 2020-09-29 CUSTOM COLOURS!!
-                RenderUtils.drawString(module.name, x + mainSize[0] / 2f,
-                  y - mainSize[1] * (i + 2) + (mainSize[1] / 2f) + scroll - yAdd,
+                RenderUtils.drawString(module.name, x + module.getSize()[0] / 2f,
+                  y - module.getSize()[1] * (i + 2) + (module.getSize()[1] / 2f) + scroll - yAdd,
                   new float[]{-250, y - maxY + 1}, new float[]{250, y - 1},
                   0.1f, Color.WHITE);
                 if (modules[i].open) {
-                    modules[i].render(y - mainSize[1] * (i + 2) + scroll - yAdd);
-                    yAdd += mainSize[1] * (modules[i].valStuff.length);
+                    modules[i].render(y - module.getSize()[1] * (i + 2) + scroll - yAdd);
                 }
             }
         }
-        RenderUtils.drawBorderedRect(x, y - mainSize[1], x + mainSize[0], y, 1,
-          (hoveringTop() && !MouseHelper.left  && ClickGUIManager.getInstance().inputOverride == null) || clicked ? Color.GRAY : Color.DARK_GRAY, Color.RED);
-        RenderUtils.drawString(name, x + mainSize[0] / 2f, y - (mainSize[1] / 2f), 0.1f, Color.WHITE);
+        RenderUtils.drawBorderedRect(x, y - getSize()[1], x + getSize()[0], y, 1,
+          (hoveringTop() && !MouseHelper.left  && OldClickGUIManager.getInstance().inputOverride == null) || clicked ? Color.GRAY : Color.DARK_GRAY, Color.RED);
+        RenderUtils.drawString(name, x + getSize()[0] / 2f, y - (getSize()[1] / 2f), 0.1f, Color.WHITE);
     }
 
     public boolean hoveringTop() {
-        return hover(0, mainSize[0], -mainSize[1], 0);
+        return hover(0, getSize()[0], -getSize()[1], 0);
     }
 
     public boolean hoveringModules() {
@@ -117,9 +119,14 @@ public class Category extends Part {
     private long lastScroll = 0;
 
     @Override
+    public int[] getSize() {
+        return topSize;
+    }
+
+    @Override
     public void scroll(double amount) {
         super.scroll(amount);
-        if (hoveringModules() && ClickGUIManager.getInstance().inputOverride == null) {
+        if (hoveringModules() && OldClickGUIManager.getInstance().inputOverride == null) {
             scroll = (float) (scroll + amount * (230 + Math.max(-200, lastScroll - System.currentTimeMillis())) / 30);
             float limit = mainSize[1] * (modules.length - getMaxItems() + 1) + yAdd;
             if (scroll > limit) scroll = limit;
@@ -133,11 +140,11 @@ public class Category extends Part {
     public void click(int button) {
         super.click(button);
         if (justOpened) justOpened = false;
-        if (ClickGUIManager.getInstance().inputOverride == null) {
+        if (OldClickGUIManager.getInstance().inputOverride == null) {
             if (button == 0) {
                 if (clicked = hoveringTop()) {
-                    ClickGUIManager.getInstance().getCategories().remove(this);
-                    ClickGUIManager.getInstance().getCategories().add(this);
+                    OldClickGUIManager.getInstance().getCategories().remove(this);
+                    OldClickGUIManager.getInstance().getCategories().add(this);
                 }
             } else if (button == 1) {
                 if (hoveringTop()) {
@@ -152,11 +159,11 @@ public class Category extends Part {
             }
         }
         if (opened && !justOpened) {
-            if (ClickGUIManager.getInstance().inputOverride == null)
+            if (OldClickGUIManager.getInstance().inputOverride == null)
                 for (Module module : modules) {
                     module.click(button);
                 }
-            else ClickGUIManager.getInstance().inputOverride.module.click(button);
+            else OldClickGUIManager.getInstance().inputOverride.module.click(button);
         }
     }
 
@@ -167,22 +174,22 @@ public class Category extends Part {
             clicked = false;
         }
         if (!justOpened && opened)
-            if (ClickGUIManager.getInstance().inputOverride == null)
+            if (OldClickGUIManager.getInstance().inputOverride == null)
                 for (Module module : modules) {
                     module.unclick(button);
                 }
-            else ClickGUIManager.getInstance().inputOverride.module.unclick(button);
+            else OldClickGUIManager.getInstance().inputOverride.module.unclick(button);
     }
 
     @Override
     public void charKey(char c) {
         super.charKey(c);
         if (opened) {
-            if (ClickGUIManager.getInstance().inputOverride == null)
+            if (OldClickGUIManager.getInstance().inputOverride == null)
                 for (Module module : modules) {
                     module.charKey(c);
                 }
-            else ClickGUIManager.getInstance().inputOverride.module.charKey(c);
+            else OldClickGUIManager.getInstance().inputOverride.module.charKey(c);
         }
     }
 
@@ -190,11 +197,11 @@ public class Category extends Part {
     public void key(int key) {
         super.key(key);
         if (opened) {
-            if (ClickGUIManager.getInstance().inputOverride == null)
+            if (OldClickGUIManager.getInstance().inputOverride == null)
                 for (Module module : modules) {
                     module.key(key);
                 }
-            else ClickGUIManager.getInstance().inputOverride.module.key(key);
+            else OldClickGUIManager.getInstance().inputOverride.module.key(key);
         }
     }
 }

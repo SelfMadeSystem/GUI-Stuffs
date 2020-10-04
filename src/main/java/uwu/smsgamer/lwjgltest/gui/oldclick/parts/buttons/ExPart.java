@@ -6,14 +6,15 @@
 |    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
 |                                                      |
 \*----------------------------------------------------*/
-package uwu.smsgamer.lwjgltest.gui.click.parts.buttons;
+package uwu.smsgamer.lwjgltest.gui.oldclick.parts.buttons;
 
-import uwu.smsgamer.lwjgltest.gui.click.parts.*;
+import uwu.smsgamer.lwjgltest.gui.oldclick.parts.*;
 import uwu.smsgamer.lwjgltest.stuff.ValStuff;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 
 import java.awt.*;
 
+@Deprecated
 public class ExPart extends EditPart {
     public ExPart(ValStuff valStuff, Category category, Module module) {
         super(valStuff, category, module);

@@ -6,14 +6,15 @@
 |    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
 |                                                      |
 \*----------------------------------------------------*/
-package uwu.smsgamer.lwjgltest.gui.click.parts;
+package uwu.smsgamer.lwjgltest.gui.oldclick.parts;
 
-import uwu.smsgamer.lwjgltest.gui.click.*;
-import uwu.smsgamer.lwjgltest.gui.click.parts.buttons.*;
+import uwu.smsgamer.lwjgltest.gui.oldclick.*;
+import uwu.smsgamer.lwjgltest.gui.oldclick.parts.buttons.*;
 import uwu.smsgamer.lwjgltest.stuff.*;
 
+@Deprecated
 public class Module extends Part {
-    public static final float spacing = 30;
+    public static final float spacing = 30; //haha like this got implemented
     public String name;
     public ValStuff[] valStuff;
     public EditPart[] editParts;
@@ -57,6 +58,7 @@ public class Module extends Part {
             for (int i = 0; i < editParts.length; i++) {
                 EditPart part = editParts[i];
                 float owoY = y - Category.mainSize[1] * (i + 1) - category.yAdd;
+                category.yAdd += part.getSize()[1];
                 if (owoY <= maxY - Category.mainSize[1]) break;
                 part.render(category.x, owoY, maxY);
             }
@@ -86,11 +88,11 @@ public class Module extends Part {
     public void scroll(double amount) {
         super.scroll(amount);
         if (open) {
-            if (ClickGUIManager.getInstance().inputOverride == null)
+            if (OldClickGUIManager.getInstance().inputOverride == null)
                 for (EditPart editPart : editParts) {
-                    if (ClickGUIManager.getInstance().inputOverride == null)
+                    if (OldClickGUIManager.getInstance().inputOverride == null)
                         editPart.scroll(amount);
-                } else ClickGUIManager.getInstance().inputOverride.scroll(amount);
+                } else OldClickGUIManager.getInstance().inputOverride.scroll(amount);
         }
     }
 
@@ -98,11 +100,11 @@ public class Module extends Part {
     public void click(int button) {
         super.click(button);
         if (open) {
-            if (ClickGUIManager.getInstance().inputOverride == null)
+            if (OldClickGUIManager.getInstance().inputOverride == null)
             for (EditPart editPart : editParts) {
-                if (ClickGUIManager.getInstance().inputOverride == null)
+                if (OldClickGUIManager.getInstance().inputOverride == null)
                     editPart.click(button);
-            } else ClickGUIManager.getInstance().inputOverride.click(button);
+            } else OldClickGUIManager.getInstance().inputOverride.click(button);
         }
     }
 
@@ -110,11 +112,11 @@ public class Module extends Part {
     public void unclick(int button) {
         super.unclick(button);
         if (open) {
-            if (ClickGUIManager.getInstance().inputOverride == null)
+            if (OldClickGUIManager.getInstance().inputOverride == null)
                 for (EditPart editPart : editParts) {
-                    if (ClickGUIManager.getInstance().inputOverride == null)
+                    if (OldClickGUIManager.getInstance().inputOverride == null)
                         editPart.unclick(button);
-                } else ClickGUIManager.getInstance().inputOverride.unclick(button);
+                } else OldClickGUIManager.getInstance().inputOverride.unclick(button);
         }
     }
 
@@ -122,11 +124,11 @@ public class Module extends Part {
     public void charKey(char c) {
         super.charKey(c);
         if (open) {
-            if (ClickGUIManager.getInstance().inputOverride == null)
+            if (OldClickGUIManager.getInstance().inputOverride == null)
                 for (EditPart editPart : editParts) {
-                    if (ClickGUIManager.getInstance().inputOverride == null)
+                    if (OldClickGUIManager.getInstance().inputOverride == null)
                         editPart.charKey(c);
-                } else ClickGUIManager.getInstance().inputOverride.charKey(c);
+                } else OldClickGUIManager.getInstance().inputOverride.charKey(c);
         }
     }
 
@@ -134,11 +136,11 @@ public class Module extends Part {
     public void key(int key) {
         super.key(key);
         if (open) {
-            if (ClickGUIManager.getInstance().inputOverride == null)
+            if (OldClickGUIManager.getInstance().inputOverride == null)
                 for (EditPart editPart : editParts) {
-                    if (ClickGUIManager.getInstance().inputOverride == null)
+                    if (OldClickGUIManager.getInstance().inputOverride == null)
                         editPart.key(key);
-                } else ClickGUIManager.getInstance().inputOverride.key(key);
+                } else OldClickGUIManager.getInstance().inputOverride.key(key);
         }
     }
 }

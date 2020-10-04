@@ -6,15 +6,15 @@
 |    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
 |                                                      |
 \*----------------------------------------------------*/
-package uwu.smsgamer.lwjgltest.gui.click.parts.buttons;
+package uwu.smsgamer.lwjgltest.gui.oldclick.parts.buttons;
 
-import uwu.smsgamer.lwjgltest.gui.click.parts.*;
-import uwu.smsgamer.lwjgltest.input.MouseHelper;
+import uwu.smsgamer.lwjgltest.gui.oldclick.parts.*;
 import uwu.smsgamer.lwjgltest.stuff.ValStuff;
 import uwu.smsgamer.lwjgltest.utils.*;
 
 import java.awt.*;
 
+@Deprecated
 public class SliderPart extends EditPart {
 
     public SliderPart(ValStuff valStuff, Category category, Module module) {

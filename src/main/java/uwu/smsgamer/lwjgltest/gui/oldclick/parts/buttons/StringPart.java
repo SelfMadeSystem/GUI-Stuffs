@@ -6,16 +6,17 @@
 |    \\\\\\\\\\\\\\\\\\\\\\\///////////////////////    |
 |                                                      |
 \*----------------------------------------------------*/
-package uwu.smsgamer.lwjgltest.gui.click.parts.buttons;
+package uwu.smsgamer.lwjgltest.gui.oldclick.parts.buttons;
 
 import org.lwjgl.glfw.GLFW;
-import uwu.smsgamer.lwjgltest.gui.click.ClickGUIManager;
-import uwu.smsgamer.lwjgltest.gui.click.parts.*;
+import uwu.smsgamer.lwjgltest.gui.oldclick.OldClickGUIManager;
+import uwu.smsgamer.lwjgltest.gui.oldclick.parts.*;
 import uwu.smsgamer.lwjgltest.stuff.ValStuff;
 import uwu.smsgamer.lwjgltest.utils.*;
 
 import java.awt.*;
 
+@Deprecated
 public class StringPart extends EditPart {
     public StringPart(ValStuff valStuff, Category category, Module module) {
         super(valStuff, category, module);
@@ -44,9 +45,9 @@ public class StringPart extends EditPart {
         super.click(button);
         if (hover()) {
             if (editing) {
-                ClickGUIManager.getInstance().inputOverride = null;
+                OldClickGUIManager.getInstance().inputOverride = null;
             } else {
-                ClickGUIManager.getInstance().inputOverride = this;
+                OldClickGUIManager.getInstance().inputOverride = this;
             }
             editing = !editing;
         }
@@ -68,7 +69,7 @@ public class StringPart extends EditPart {
         if (editing) {
             if (k == GLFW.GLFW_KEY_ENTER) {
                 editing = false;
-                ClickGUIManager.getInstance().inputOverride = null;
+                OldClickGUIManager.getInstance().inputOverride = null;
                 return;
             }
             String text = (String) valStuff.value;

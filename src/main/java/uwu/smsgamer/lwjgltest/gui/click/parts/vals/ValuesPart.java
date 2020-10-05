@@ -110,11 +110,21 @@ public class ValuesPart extends ValPart {
     @Override
     public void charKey(char c) {
         super.charKey(c);
+        if (open) {
+            for (ValPart part : parts) {
+                part.charKey(c);
+            }
+        }
     }
 
     @Override
     public void key(int key) {
         super.key(key);
+        if (open) {
+            for (ValPart part : parts) {
+                part.key(key);
+            }
+        }
     }
 
     @Override

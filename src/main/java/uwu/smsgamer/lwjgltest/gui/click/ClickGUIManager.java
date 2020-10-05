@@ -15,9 +15,15 @@ import uwu.smsgamer.lwjgltest.stuff.*;
 
 import java.util.*;
 
+import static uwu.smsgamer.lwjgltest.gui.click.Part.*;
+
 public class ClickGUIManager {
     private static ClickGUIManager instance;
-    public ValStuff[] colours = new ValStuff[]{};
+    public ValStuff[] colours = new ValStuff[]{
+      new ValStuff(ValStuff.Type.VALUES, "Top",
+        new ValStuff(ValStuff.Type.COLOUR, "COLOR", TOP_COLOR),
+        new ValStuff(ValStuff.Type.COLOUR, "COLOR_HOVER", TOP_COLOR_HOVER),
+        new ValStuff(ValStuff.Type.COLOUR, "BORDER_COLOR", TOP_BORDER_COLOR))};
     public ValStuff[] size = new ValStuff[]{
       new ValStuff(ValStuff.Type.VALUES, "TopSize",
         new ValStuff(ValStuff.Type.NUMBER, "X", 160, 0, 300, 1),

@@ -19,9 +19,6 @@ import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 import java.awt.*;
 
 public class ChoicePart extends ValPart {
-    public static Color BASE_COLOR = new Color(100, 100, 100);
-    public static Color HOVER_COLOR = new Color(80, 80, 80);
-    public static Color OPEN_COLOR = new Color(70, 70, 70);
     public ValPart[] parts;
 
     public ChoicePart(CategoryPart category, ValStuff valStuff, ModulePart module, int indent) {
@@ -48,7 +45,7 @@ public class ChoicePart extends ValPart {
             RenderUtils.drawBorderedRect(getX() - getSize()[0] / 2F + indent * 2,
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
-              open ? OPEN_COLOR : notOverridden() && hovering() ? HOVER_COLOR : BASE_COLOR, BORDER_COLOR);
+              open ? MORE_OPEN_COLOR : notOverridden() && hovering() ? MORE_HOVER_COLOR : MORE_BASE_COLOR, BORDER_COLOR);
             RenderUtils.drawString(this.name, getX() + indent, getY() + getSize()[1]/6F, new float[]{-5000, maxY + edgeRadius},
               new float[]{5000, category.y}, 0.07F, Color.WHITE);
             RenderUtils.drawString(String.valueOf(this.valStuff.value), getX() + indent, getY() - getSize()[1]/4F, new float[]{-5000, maxY + edgeRadius},

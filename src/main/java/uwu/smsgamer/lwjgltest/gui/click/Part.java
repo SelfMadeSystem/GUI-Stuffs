@@ -39,6 +39,10 @@ public abstract class Part {
     public static Color OFF_COLOR_HOVER = new Color(230, 0, 0);
     public static Color ON_COLOR_CLICK = new Color(0, 160, 0);//click
     public static Color OFF_COLOR_CLICK = new Color(160, 0, 0);
+    //other shit
+    public static Color MORE_BASE_COLOR = new Color(100, 100, 100);
+    public static Color MORE_HOVER_COLOR = new Color(80, 80, 80);
+    public static Color MORE_OPEN_COLOR = new Color(70, 70, 70);
     public boolean open;
     public String name;
     public CategoryPart category;

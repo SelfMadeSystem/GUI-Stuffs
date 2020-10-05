@@ -37,7 +37,7 @@ public class ColourPart extends ValPart {
         RGB rgb = Colour.hsv2rgb(hsv);
         if (select == 0) {
             hsv.s = getRangeX(x - getSize()[0] / 2F, x + getSize()[0] / 2F);
-            hsv.v = getRangeY(getY() - getSize()[0], getY());
+            hsv.v = getRangeY(getY() - getSize()[0] - getSize()[1]/2F, getY() - getSize()[1]/2F);
             valStuff.value = (rgb = Colour.hsv2rgb(hsv)).toColor();
         } else if (select == 1) {
             hsv.h = getRangeX(x - getSize()[0] / 2F, x + getSize()[0] / 2F) * 360;
@@ -53,9 +53,9 @@ public class ColourPart extends ValPart {
                     Color c = Colour.hsv2rgb(hhh).toColor();
                     c = MathUtils.approxEquals(hhh.h, hsv.h, 2) ? pointer : c;
                     drawRect(getX() - getSize()[0] / 2F + (cx * owo),
-                      getY() - getSize()[0] - getSize()[1],
+                      getY() - getSize()[0] - getSize()[1] - getSize()[1]/2F,
                       getX() - getSize()[0] / 2F + owo * 2 + (cx * owo),
-                      getY() - getSize()[0] + getSize()[1] / 2F, c);
+                      getY() - getSize()[0] + getSize()[1] / 2F - getSize()[1]/2F, c);
                 }
                 for (int cy = 0; cy < 100; cy++) {
                     Colour.HSV hhh = new Colour.HSV(hsv.h, cx / 100f, cy / 100f);
@@ -64,9 +64,9 @@ public class ColourPart extends ValPart {
                       MathUtils.approxEquals(hhh.v, hsv.v, 0.01) ?
                       pointer : c;
                     drawRect(getX() - getSize()[0] / 2F + (cx * owo),
-                      getY() - getSize()[0] + (cy * owo) - owo,
+                      getY() - getSize()[0] + (cy * owo) - owo - getSize()[1]/2F,
                       getX() - getSize()[0] / 2F + owo * 2 + (cx * owo),
-                      getY() - getSize()[0] + owo * 2 + (cy * owo) - owo, c);
+                      getY() - getSize()[0] + owo * 2 + (cy * owo) - owo - getSize()[1]/2F, c);
                 }
             }
         }
@@ -82,7 +82,7 @@ public class ColourPart extends ValPart {
             RenderUtils.drawString(String.format("#%02x%02x%02x", (int) (rgb.r * 255), (int) (rgb.g * 255), (int) (rgb.b * 255)), getX() + indent, getY() - getSize()[1] / 4F, new float[]{-5000, maxY + edgeRadius},
               new float[]{5000, category.y}, 0.04F, Color.WHITE);
         }
-        category.yAdd += open ? getSize()[0] + getSize()[1] / 2F : 0;
+        category.yAdd += open ? getSize()[0] + getSize()[1] : 0;
     }
 
     @Override
@@ -92,10 +92,10 @@ public class ColourPart extends ValPart {
             open = !open;
         } else if (open) {
             if (category.hoverRaw(getX() - getSize()[0] / 2F, getX() + getSize()[0] / 2F,
-              getY() - getSize()[0], getY())) {
+              getY() - getSize()[0] - getSize()[1]/2F, getY() - getSize()[1]/2F)) {
                 select = 0;
             } else if (category.hoverRaw(getX() - getSize()[0] / 2F, getX() + getSize()[0] / 2F,
-              getY() - getSize()[0] - getSize()[1], getY() - getSize()[0])) {
+              getY() - getSize()[0] - getSize()[1] * 1.5F, getY() - getSize()[0] - getSize()[1]/2F)) {
                 select = 1;
             }
         }

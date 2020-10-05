@@ -55,7 +55,7 @@ public class CategoryPart extends Part {
         }
         RenderUtils.drawRoundBorderedRect(this.x - (getSize()[0] / 2F), this.y - (getSize()[1] / 2F),
           this.x + (getSize()[0] / 2F), this.y + (getSize()[1] / 2F), 0, 2,
-          super.notOverridden() && hoveringTop() || clicking ? TOP_COLOR_HOVER : TOP_COLOR, TOP_BORDER_COLOR);
+          notOverridden() && hoveringTop() || clicking ? TOP_COLOR_HOVER : TOP_COLOR, TOP_BORDER_COLOR);
         RenderUtils.drawString(this.name, this.x, this.y, 0.09F, 0.06F, Color.BLACK);
     }
 
@@ -81,7 +81,7 @@ public class CategoryPart extends Part {
     public void click(int button) {
         super.click(button);
         if (this.justOpened) this.justOpened = false;
-        if (hoveringTop()) {
+        if (notOverridden() && hoveringTop()) {
             ClickGUIManager.getInstance().getCategories().remove(this);
             ClickGUIManager.getInstance().getCategories().add(this);
             if (button == 1) {
@@ -177,10 +177,5 @@ public class CategoryPart extends Part {
         int mouseX = MouseHelper.posX - 250;
         int mouseY = -MouseHelper.posY + 250;
         return (mouseX > minX && mouseX < maxX) && (mouseY > minY && mouseY < maxY);
-    }
-
-    @Override
-    public boolean notOverridden() {
-        return ClickGUIManager.getInstance().inputOverride == null || ClickGUIManager.getInstance().inputOverride.category.equals(this);
     }
 }

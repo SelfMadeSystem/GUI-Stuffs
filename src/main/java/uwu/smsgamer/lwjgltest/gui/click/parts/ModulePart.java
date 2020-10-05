@@ -37,10 +37,10 @@ public class ModulePart extends Part {
                     break;
                 case STRING:
                     parts[i] = new StringPart(this.category, valStuff, this, 0);
-                    break;/*
+                    break;
                 case CHOICE:
                     parts[i] = new ChoicePart(this.category, valStuff, this, 0);
-                    break;*/
+                    break;
                 default:
                     parts[i] = new PPart(this.category, valStuff, this, 0);
             }
@@ -125,10 +125,5 @@ public class ModulePart extends Part {
                 part.key(key);
             }
         }
-    }
-
-    @Override
-    public boolean notOverridden() {
-        return ClickGUIManager.getInstance().inputOverride == null || ClickGUIManager.getInstance().inputOverride.module.equals(this);
     }
 }

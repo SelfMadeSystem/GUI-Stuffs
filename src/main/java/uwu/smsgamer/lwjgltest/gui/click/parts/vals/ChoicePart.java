@@ -18,37 +18,19 @@ import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 
 import java.awt.*;
 
-public class ValuesPart extends ValPart {
+public class ChoicePart extends ValPart {
     public static Color BASE_COLOR = new Color(100, 100, 100);
     public static Color HOVER_COLOR = new Color(80, 80, 80);
     public static Color OPEN_COLOR = new Color(70, 70, 70);
     public ValPart[] parts;
 
-    public ValuesPart(CategoryPart category, ValStuff valStuff, ModulePart module, int indent) {
+    public ChoicePart(CategoryPart category, ValStuff valStuff, ModulePart module, int indent) {
         super(category, valStuff, module, indent);
-        ValStuff[] valStuffs = valStuff.values;
-        this.parts = new ValPart[valStuffs.length];
-        for (int i = 0; i < valStuffs.length; i++) {
-            ValStuff vs = valStuffs[i]; //not visual studio lol
-            switch (vs.type) {
-                case VALUES:
-                    parts[i] = new ValuesPart(this.category, vs, this.module, indent + 2);
-                    break;
-                case BOOLEAN:
-                    parts[i] = new TogglePart(this.category, vs, this.module, indent + 2);
-                    break;
-                case NUMBER:
-                    parts[i] = new SliderPart(this.category, vs, this.module, indent + 2);
-                    break;
-                case STRING:
-                    parts[i] = new StringPart(this.category, vs, this.module, indent + 2);
-                    break;
-                case CHOICE:
-                    parts[i] = new ChoicePart(this.category, vs, this.module, indent + 2);
-                    break;
-                default:
-                    parts[i] = new PPart(this.category, vs, this.module, indent + 2);
-            }
+        String[] choices = valStuff.choices;
+        this.parts = new ValPart[choices.length];
+        for (int i = 0; i < choices.length; i++) {
+            String s = choices[i]; //not visual studio lol
+            parts[i] = new Choice(this.category, this.valStuff, this.module, s, indent + 2);
         }
     }
 
@@ -67,8 +49,10 @@ public class ValuesPart extends ValPart {
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
               open ? OPEN_COLOR : notOverridden() && hovering() ? HOVER_COLOR : BASE_COLOR, BORDER_COLOR);
-            RenderUtils.drawString(this.name, getX() + indent, getY(), new float[]{-5000, maxY + edgeRadius},
-              new float[]{5000, category.y}, 0.1F, Color.WHITE);
+            RenderUtils.drawString(this.name, getX() + indent, getY() + getSize()[1]/6F, new float[]{-5000, maxY + edgeRadius},
+              new float[]{5000, category.y}, 0.07F, Color.WHITE);
+            RenderUtils.drawString(String.valueOf(this.valStuff.value), getX() + indent, getY() - getSize()[1]/4F, new float[]{-5000, maxY + edgeRadius},
+              new float[]{5000, category.y}, 0.04F, Color.WHITE);
         }
     }
 
@@ -127,6 +111,34 @@ public class ValuesPart extends ValPart {
         super.close();
         for (ValPart part : parts) {
             part.close();
+        }
+    }
+
+    private static class Choice extends ValPart {
+        public Choice(CategoryPart category, ValStuff valStuff, ModulePart module, String name, int indent) {
+            super(category, valStuff, module, indent);
+            this.name = name;
+        }
+
+        @Override
+        public void render(float x, float y, float maxY) {
+            super.render(x, y, maxY);
+            if (getY() + getSize()[1] / 2F > maxY &&
+              getY() - getSize()[1] / 2F < category.y + category.getSize()[1] / 2F) {
+                RenderUtils.drawBorderedRect(getX() - getSize()[0] / 2F + indent * 2,
+                  Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
+                  getX() + getSize()[0] / 2F - 4, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
+                  this.valStuff.value.equals(this.name) ? MAIN_COLOR_SELECT :
+                    notOverridden() && hovering() ? MAIN_COLOR_HOVER : MAIN_COLOR, BORDER_COLOR);
+                RenderUtils.drawString(this.name, getX() + indent, getY(), new float[]{-5000, maxY + edgeRadius},
+                  new float[]{5000, category.y}, 0.1F, Color.WHITE);
+            }
+        }
+
+        @Override
+        public void click(int button) {
+            super.click(button);
+            this.valStuff.value = hovering() ? this.name : this.valStuff.value;
         }
     }
 }

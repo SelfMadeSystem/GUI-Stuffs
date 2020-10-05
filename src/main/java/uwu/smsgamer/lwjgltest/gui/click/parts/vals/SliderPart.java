@@ -63,8 +63,10 @@ public class SliderPart extends ValPart {
                     Math.max(0, value - step / (max - min) * 0.5F))
                     + edgeRadius, Math.min(category.y, getY() + getSize()[1] / 2F) - edgeRadius, SLIDER_HINT_BEFORE);
             }
-            RenderUtils.drawString(this.name, getX() + indent, getY(), new float[]{-5000, maxY + edgeRadius},
-              new float[]{5000, category.y}, 0.1F, Color.WHITE);
+            RenderUtils.drawString(this.name, getX() + indent, getY() + getSize()[1]/6F, new float[]{-5000, maxY + edgeRadius},
+              new float[]{5000, category.y}, 0.07F, Color.WHITE);
+            RenderUtils.drawString(String.valueOf(this.valStuff.value), getX() + indent, getY() - getSize()[1]/4F, new float[]{-5000, maxY + edgeRadius},
+              new float[]{5000, category.y}, 0.04F, Color.WHITE);
         }
     }
 

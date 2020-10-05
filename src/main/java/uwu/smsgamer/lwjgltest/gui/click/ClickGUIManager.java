@@ -9,14 +9,23 @@
 package uwu.smsgamer.lwjgltest.gui.click;
 
 import lombok.Getter;
-import uwu.smsgamer.lwjgltest.gui.click.parts.CategoryPart;
+import uwu.smsgamer.lwjgltest.gui.click.parts.*;
 import uwu.smsgamer.lwjgltest.input.MouseHelper;
-import uwu.smsgamer.lwjgltest.stuff.Stuff;
+import uwu.smsgamer.lwjgltest.stuff.*;
 
 import java.util.*;
 
 public class ClickGUIManager {
     private static ClickGUIManager instance;
+    public ValStuff[] colours = new ValStuff[]{};
+    public ValStuff[] size = new ValStuff[]{
+      new ValStuff(ValStuff.Type.VALUES, "TopSize",
+        new ValStuff(ValStuff.Type.NUMBER, "X", 160, 0, 300, 1),
+        new ValStuff(ValStuff.Type.NUMBER, "Y", 20, 0, 300, 1)),
+      new ValStuff(ValStuff.Type.VALUES, "MainSize",
+        new ValStuff(ValStuff.Type.NUMBER, "X", 150, 30, 300, 1),
+        new ValStuff(ValStuff.Type.NUMBER, "Y", 30, 10, 300, 1)),
+      new ValStuff(ValStuff.Type.NUMBER, "MaxLength", 300, 50, 600, 1)};
 
     public static ClickGUIManager getInstance() {
         if (instance == null) instance = new ClickGUIManager();
@@ -30,6 +39,10 @@ public class ClickGUIManager {
             String s = strings[i];
             categories.add(new CategoryPart(i, s));
         }
+        CategoryPart settings;
+        categories.add(settings = new CategoryPart("Settings", categories.size()));
+        settings.modules = new ModulePart[]{new ModulePart("colour", settings, colours),
+          new ModulePart("size", settings, size)};
     }
 
     @Getter
@@ -38,6 +51,7 @@ public class ClickGUIManager {
     public ValPart inputOverride;
 
     public void render() {
+        setSettings();
         for (CategoryPart c : new ArrayList<>(categories)) {
             c.render();
             if (inputOverride == null || inputOverride.category.equals(c)) {
@@ -52,6 +66,14 @@ public class ClickGUIManager {
         click[0] = MouseHelper.left;
         click[1] = MouseHelper.right;
         click[2] = MouseHelper.middle;
+    }
+
+    public void setSettings() {
+        Part.topSize[0] = ((Double) size[0].values[0].value).intValue();
+        Part.topSize[1] = ((Double) size[0].values[1].value).intValue();
+        Part.mainSize[0] = ((Double) size[1].values[0].value).intValue();
+        Part.mainSize[1] = ((Double) size[1].values[1].value).intValue();
+        Part.maxLength = ((Double) size[2].value).intValue();
     }
 
     public void scroll(double amount) {

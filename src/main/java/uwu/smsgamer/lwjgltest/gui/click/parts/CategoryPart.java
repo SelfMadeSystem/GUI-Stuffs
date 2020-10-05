@@ -22,6 +22,13 @@ public class CategoryPart extends Part {
     public float yAdd;
     public float scroll;
 
+    public CategoryPart(String name, int index) {
+        super(name, null);
+        this.category = this;
+        this.x = -250 + (getSize()[0] / 2F + 5);
+        this.y = 250 - ((getSize()[1] / 2F + 5) + (getSize()[1] * 1.5F) * index);
+    }
+
     public CategoryPart(int index, String name) {
         super(name, null);
         this.category = this;

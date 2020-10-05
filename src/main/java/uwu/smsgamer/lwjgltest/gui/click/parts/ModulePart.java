@@ -19,9 +19,17 @@ public class ModulePart extends Part {
     
     ValPart[] parts;
 
+    public ModulePart(String name, CategoryPart category, ValStuff[] parts) {
+        super(name, category);
+        setup(parts);
+    }
+
     public ModulePart(String name, CategoryPart category) {
         super(name, category);
-        ValStuff[] valStuffs = Stuff.values.get(category.name).get(name);
+        setup(Stuff.values.get(category.name).get(name));
+    }
+
+    public void setup(ValStuff[] valStuffs) {
         this.parts = new ValPart[valStuffs.length];
         for (int i = 0; i < valStuffs.length; i++) {
             ValStuff valStuff = valStuffs[i];

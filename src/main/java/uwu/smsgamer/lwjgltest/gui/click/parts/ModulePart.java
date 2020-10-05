@@ -49,6 +49,9 @@ public class ModulePart extends Part {
                 case CHOICE:
                     parts[i] = new ChoicePart(this.category, valStuff, this, 0);
                     break;
+                case COLOUR:
+                    parts[i] = new ColourPart(this.category, valStuff, this, 0);
+                    break;
                 default:
                     parts[i] = new PPart(this.category, valStuff, this, 0);
             }

@@ -104,7 +104,7 @@ public abstract class Part {
     }
 
     public static double getRangeY(double minY, double maxY) {
-        int mouseY = MouseHelper.posY - 250;
+        int mouseY = -MouseHelper.posY + 250;
         double delta = maxY - minY;
         return Math.min(1, Math.max(0, (mouseY - (minY)) / delta));
     }

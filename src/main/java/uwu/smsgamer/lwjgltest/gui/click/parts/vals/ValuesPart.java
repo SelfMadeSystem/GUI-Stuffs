@@ -39,10 +39,10 @@ public class ValuesPart extends ValPart {
                     break;
                 case NUMBER:
                     parts[i] = new SliderPart(this.category, vs, this.module, indent + 2);
-                    break;/*
+                    break;
                 case STRING:
                     parts[i] = new StringPart(this.category, vs, this.module, indent + 2);
-                    break;
+                    break;/*
                 case CHOICE:
                     parts[i] = new ChoicePart(this.category, vs, this.module, indent + 2);
                     break;*/
@@ -66,7 +66,7 @@ public class ValuesPart extends ValPart {
             RenderUtils.drawBorderedRect(getX() - getSize()[0] / 2F + indent * 2,
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
-              open ? OPEN_COLOR : hovering() ? HOVER_COLOR : BASE_COLOR, BORDER_COLOR);
+              open ? OPEN_COLOR : notOverridden() && hovering() ? HOVER_COLOR : BASE_COLOR, BORDER_COLOR);
             RenderUtils.drawString(this.name, getX() + indent, getY(), new float[]{-5000, maxY + edgeRadius},
               new float[]{5000, category.y}, 0.1F, Color.WHITE);
         }
@@ -83,7 +83,7 @@ public class ValuesPart extends ValPart {
     public void click(int button) {
         super.click(button);
         if (this.justOpened) this.justOpened = false;
-        if (hovering()) {
+        if (notOverridden() && hovering()) {
             if (button == 0 || button == 1) {
                 if (this.open) close();
                 else open();

@@ -108,4 +108,8 @@ public abstract class Part {
         double delta = maxY - minY;
         return Math.min(1, Math.max(0, (mouseY - (minY)) / delta));
     }
+
+    public boolean notOverridden() {
+        return ClickGUIManager.getInstance().inputOverride == null || ClickGUIManager.getInstance().inputOverride.equals(this);
+    }
 }

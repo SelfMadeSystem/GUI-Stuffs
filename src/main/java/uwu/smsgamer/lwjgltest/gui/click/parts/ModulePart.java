@@ -34,10 +34,10 @@ public class ModulePart extends Part {
                     break;
                 case NUMBER:
                     parts[i] = new SliderPart(this.category, valStuff, this, 0);
-                    break;/*
+                    break;
                 case STRING:
                     parts[i] = new StringPart(this.category, valStuff, this, 0);
-                    break;
+                    break;/*
                 case CHOICE:
                     parts[i] = new ChoicePart(this.category, valStuff, this, 0);
                     break;*/
@@ -61,7 +61,7 @@ public class ModulePart extends Part {
             RenderUtils.drawBorderedRect(getX() - getSize()[0] / 2F,
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
-              hovering() ? MAIN_COLOR_HOVER : MAIN_COLOR, BORDER_COLOR);
+              notOverridden() && hovering() ? MAIN_COLOR_HOVER : MAIN_COLOR, BORDER_COLOR);
             RenderUtils.drawString(this.name, getX(), getY(), new float[]{-5000, maxY + edgeRadius},
               new float[]{5000, category.y}, 0.1F, Color.WHITE);
         }
@@ -73,7 +73,7 @@ public class ModulePart extends Part {
     public void click(int button) {
         super.click(button);
         if (this.justOpened) this.justOpened = false;
-        if (hovering()) {
+        if (notOverridden() && hovering()) {
             if (button == 1) {
                 if (this.open) close();
                 else open();
@@ -125,5 +125,10 @@ public class ModulePart extends Part {
                 part.key(key);
             }
         }
+    }
+
+    @Override
+    public boolean notOverridden() {
+        return ClickGUIManager.getInstance().inputOverride == null || ClickGUIManager.getInstance().inputOverride.module.equals(this);
     }
 }

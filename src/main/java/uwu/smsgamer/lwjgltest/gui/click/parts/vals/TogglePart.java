@@ -32,7 +32,7 @@ public class TogglePart extends ValPart {
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
               clicking ? (((boolean) valStuff.value) ? ON_COLOR_CLICK : OFF_COLOR_CLICK) :
-                (hovering() ? (((boolean) valStuff.value) ? ON_COLOR_HOVER : OFF_COLOR_HOVER) :
+                (notOverridden() && hovering() ? (((boolean) valStuff.value) ? ON_COLOR_HOVER : OFF_COLOR_HOVER) :
                   (((boolean) valStuff.value) ? ON_COLOR : OFF_COLOR)), BORDER_COLOR);
             RenderUtils.drawString(this.name, getX() + indent, getY(), new float[]{-5000, maxY + edgeRadius},
               new float[]{5000, category.y}, 0.1F, Color.WHITE);
@@ -44,13 +44,13 @@ public class TogglePart extends ValPart {
     @Override
     public void click(int button) {
         super.click(button);
-        if (hovering()) clicking = true;
+        if (notOverridden() && hovering()) clicking = true;
     }
 
     @Override
     public void unclick(int button) {
         super.unclick(button);
-        if (hovering() && clicking) {
+        if (notOverridden() && hovering() && clicking) {
             valStuff.value = !(boolean) valStuff.value;
         }
         clicking = false;

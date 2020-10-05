@@ -35,7 +35,7 @@ public class SliderPart extends ValPart {
             value = getRangeX(x - getSize()[0] / 2F + edgeRadius * 2,
               x + getSize()[0] / 2F - edgeRadius * 2) * (max - min) + min + step/2;
             valStuff.value = MathUtils.roundInc(value, step);
-            value = ((double) valStuff.value - min) / (max - min);
+            value = ((double) valStuff.value - min) / (max - min);// FIXME: 2020-10-04 not setting properly
         }
 
         if (getY() + getSize()[1] / 2F > maxY &&
@@ -43,7 +43,7 @@ public class SliderPart extends ValPart {
             RenderUtils.drawBorderedRect(getX() - getSize()[0] / 2F + indent * 2,
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
-              hovering() && !clicking ? MAIN_COLOR_HOVER : MAIN_COLOR, BORDER_COLOR);
+              notOverridden() && hovering() && !clicking ? MAIN_COLOR_HOVER : MAIN_COLOR, BORDER_COLOR);
             if (clicking) {
                 RenderUtils.drawRect(getX() - getSize()[0] / 2F + indent * 2 + edgeRadius,
                   Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)) + edgeRadius,
@@ -55,7 +55,7 @@ public class SliderPart extends ValPart {
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)) + edgeRadius,
               (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent - edgeRadius * 2) * value)
                 + edgeRadius, Math.min(category.y, getY() + getSize()[1] / 2F) - edgeRadius,
-              hovering() && !clicking ? SLIDER_COLOR_HOVER : SLIDER_COLOR);
+              notOverridden() && hovering() && !clicking ? SLIDER_COLOR_HOVER : SLIDER_COLOR);
             if (clicking) {
                 RenderUtils.drawRect(getX() - getSize()[0] / 2F + indent * 2 + edgeRadius,
                   Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)) + edgeRadius,
@@ -73,7 +73,7 @@ public class SliderPart extends ValPart {
     @Override
     public void click(int button) {
         super.click(button);
-        clicking = hovering();
+        clicking = notOverridden() && hovering();
     }
 
     @Override

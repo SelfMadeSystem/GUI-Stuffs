@@ -32,10 +32,10 @@ public class SliderPart extends ValPart {
         double value = ((double) valStuff.value - min) / (max - min);
 
         if (clicking) {
-            value = getRangeX(x - getSize()[0] / 2F + edgeRadius * 2,
-              x + getSize()[0] / 2F - edgeRadius * 2) * (max - min) + min + step/2;
+            value = getRangeX(x - getSize()[0] / 2F + edgeRadius + indent * 2,
+              x + getSize()[0] / 2F - edgeRadius) * (max - min) + min + step/2;
             valStuff.value = MathUtils.roundInc(value, step);
-            value = ((double) valStuff.value - min) / (max - min);// FIXME: 2020-10-04 not setting properly
+            value = ((double) valStuff.value - min) / (max - min);
         }
 
         if (getY() + getSize()[1] / 2F > maxY &&
@@ -47,19 +47,19 @@ public class SliderPart extends ValPart {
             if (clicking) {
                 RenderUtils.drawRect(getX() - getSize()[0] / 2F + indent * 2 + edgeRadius,
                   Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)) + edgeRadius,
-                  (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent - edgeRadius * 2) *
+                  (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent * 2 - edgeRadius * 2) *
                     Math.min(1, value + step / (max - min) * 0.5F))
                     + edgeRadius, Math.min(category.y, getY() + getSize()[1] / 2F) - edgeRadius, SLIDER_HINT_AFTER);
             }
             RenderUtils.drawRect(getX() - getSize()[0] / 2F + indent * 2 + edgeRadius,
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)) + edgeRadius,
-              (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent - edgeRadius * 2) * value)
+              (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent * 2 - edgeRadius * 2) * value)
                 + edgeRadius, Math.min(category.y, getY() + getSize()[1] / 2F) - edgeRadius,
               notOverridden() && hovering() && !clicking ? SLIDER_COLOR_HOVER : SLIDER_COLOR);
             if (clicking) {
                 RenderUtils.drawRect(getX() - getSize()[0] / 2F + indent * 2 + edgeRadius,
                   Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)) + edgeRadius,
-                  (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent - edgeRadius * 2) *
+                  (float) (getX() - (getSize()[0] / 2F - indent * 2) + (getSize()[0] - indent * 2 - edgeRadius * 2) *
                     Math.max(0, value - step / (max - min) * 0.5F))
                     + edgeRadius, Math.min(category.y, getY() + getSize()[1] / 2F) - edgeRadius, SLIDER_HINT_BEFORE);
             }

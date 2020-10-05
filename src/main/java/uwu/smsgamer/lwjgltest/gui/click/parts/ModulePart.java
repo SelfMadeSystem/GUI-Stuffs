@@ -99,6 +99,14 @@ public class ModulePart extends Part {
     }
 
     @Override
+    public void close() {
+        super.close();
+        for (ValPart module : parts) {
+            module.close();
+        }
+    }
+
+    @Override
     public void unclick(int button) {
         super.unclick(button);
         if (open && !justOpened) {

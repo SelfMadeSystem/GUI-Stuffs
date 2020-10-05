@@ -20,9 +20,11 @@ public abstract class Part {
 
     public static float edgeRadius = 2;
 
+    //top
     public static Color TOP_COLOR = Color.blue;
     public static Color TOP_COLOR_HOVER = Color.cyan;
     public static Color TOP_BORDER_COLOR = Color.red;
+    //main
     public static Color MAIN_COLOR = new Color(156, 156, 156);
     public static Color MAIN_COLOR_HOVER = new Color(128, 128, 128);
     public static Color MAIN_COLOR_SELECT = new Color(100, 100, 100);

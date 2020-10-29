@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL;
 import uwu.smsgamer.lwjgltest.Main;
 import uwu.smsgamer.lwjgltest.gui.block.BlockManager;
 import uwu.smsgamer.lwjgltest.gui.click.ClickGUIManager;
+import uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager;
 import uwu.smsgamer.lwjgltest.gui.radial.Ring;
 import uwu.smsgamer.lwjgltest.input.*;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
@@ -80,7 +81,7 @@ public class Window {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             glEnable(GL_BLEND);
-            glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+            glClearColor(bgColor.getRed() / 255f, bgColor.getGreen() / 255f, bgColor.getBlue() / 255f, bgColor.getAlpha() / 255f);
             render();
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -90,7 +91,12 @@ public class Window {
     }
 
     private void render() {
-        renderClick();
+        renderPSNF();
+    }
+
+    private void renderPSNF() {
+        RenderUtils.div = 250f;
+        PSNFManager.getInstance().render();
     }
 
     private void renderClick() {

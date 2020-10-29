@@ -101,6 +101,13 @@ public class RenderUtils {
         drawRectUnDiv(x1 + edgeRadius, y1 + edgeRadius, x2 - edgeRadius, y2 - edgeRadius, main);
     }
 
+    public static void drawRectBorder(float x1, float y1, float x2, float y2, float edgeRadius, Color main) {
+        drawRect(x1, y1, x2, y1 + edgeRadius, main);
+        drawRect(x1, y1, x1 + edgeRadius, y2, main);
+        drawRect(x2, y1, x2 - edgeRadius, y2, main);
+        drawRect(x1, y2, x2, y2 - edgeRadius, main);
+    }
+
     public static void drawRoundRect(float x1, float y1, float x2, float y2, float round, Color main) {
         if (Math.abs(x1 - x2) <= round || Math.abs(y1 - y2) <= round) return;
         x1 /= div;
@@ -150,12 +157,16 @@ public class RenderUtils {
     }
 
     public static void drawRectUnDiv(float x1, float y1, float x2, float y2, Color color) {
+        float minX = Math.min(x1, x2);
+        float maxX = Math.max(x1, x2);
+        float minY = Math.min(y1, y2);
+        float maxY = Math.max(y1, y2);
         glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
         glBegin(GL_QUADS);
-        glVertex2f(x1, y1);
-        glVertex2f(x1, y2);
-        glVertex2f(x2, y2);
-        glVertex2f(x2, y1);
+        glVertex2f(minX, minY);
+        glVertex2f(minX, maxY);
+        glVertex2f(maxX, maxY);
+        glVertex2f(maxX, minY);
         glEnd();
     }
 
@@ -176,6 +187,7 @@ public class RenderUtils {
     public static void drawString(String text, float x, float y, float size, Color color) {
         drawString(text, x, y, size, size, color);
     }
+
     public static void drawString(String text, float x, float y, float sizeX, float sizeY, Color color) {
         x /= div;
         y /= div;

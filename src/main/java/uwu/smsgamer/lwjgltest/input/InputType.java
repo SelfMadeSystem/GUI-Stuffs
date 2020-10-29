@@ -46,6 +46,10 @@ public class InputType {
         return down = false;
     }
 
+    public long pressTimeMS() {
+        return getPressTime()/1000000;
+    }
+
     public void update() {
         down = getDownRaw();
         released = !down && pressFrames > 0;

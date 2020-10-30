@@ -23,31 +23,13 @@ import java.util.LinkedList;
 
 import static uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager.*;
 
-public class ValuesComp extends ValComp {
+public class ChoiceComp extends ValComp {
     public LinkedList<ValComp> components = new LinkedList<>();
 
-    public ValuesComp(ValStuff valStuff, Module module, Category category, Component prevComponent) {
+    public ChoiceComp(ValStuff valStuff, Module module, Category category, Component prevComponent) {
         super(valStuff, module, category, prevComponent);
-        for (ValStuff stuff : valStuff.values) {
-            switch (stuff.type) {
-                case VALUES:
-                    components.add(new ValuesComp(stuff, module, category, this));
-                    break;
-                case STRING:
-                    components.add(new StringComp(stuff, module, category, this));
-                    break;
-                case NUMBER:
-                    components.add(new SliderComp(stuff, module, category, this));
-                    break;
-                case BOOLEAN:
-                    components.add(new BoolComp(stuff, module, category, this));
-                    break;
-                case COLOUR:
-                    components.add(new ColorComp(stuff, module, category, this));
-                    break;
-                default:
-                    components.add(new DComp(stuff, module, category, this));
-            }
+        for (String s : valStuff.choices) {
+            components.add(new Choice(valStuff, module, category, this, s));
         }
     }
 
@@ -71,6 +53,7 @@ public class ValuesComp extends ValComp {
                 component.render();
             }
         }
+        RenderUtils.drawString(String.valueOf(valStuff.value), x + WIDTH / 2, y + HEIGHT / 2, 10f, Color.WHITE);
         if (isActive()) {
             if (InputManager.UP.justPressed()) {
                 changeComponent(-1);
@@ -88,10 +71,7 @@ public class ValuesComp extends ValComp {
     @Override
     public void click() {
         if (mngr().currentComponent != this) return;
-        Component component = this.components.get(select);
-        component.click();
-        mngr().currentComponent = component;
-        component.selected = true;
+        this.components.get(select).click();
     }
 
     @Override
@@ -121,5 +101,27 @@ public class ValuesComp extends ValComp {
 
     public long getChangeTime() {
         return Math.max(0, changeTime - System.currentTimeMillis());
+    }
+
+    private static class Choice extends ValComp {
+
+        public final String choice;
+
+        public Choice(ValStuff valStuff, Module module, Category category, Component prevComponent, String choice) {
+            super(valStuff, module, category, prevComponent);
+            this.choice = choice;
+        }
+
+        @Override
+        public void render() {
+            RenderUtils.drawRoundBorderedRect(x, y, x + WIDTH, y + HEIGHT, ROUND, EDGE_RAD, Color.LIGHT_GRAY, Color.RED);
+            RenderUtils.drawString(String.valueOf(choice), x + WIDTH / 2, y + HEIGHT / 2, 10f, Color.WHITE);
+        }
+
+        @Override
+        public void click() {
+            unclick();
+            valStuff.value = choice;
+        }
     }
 }

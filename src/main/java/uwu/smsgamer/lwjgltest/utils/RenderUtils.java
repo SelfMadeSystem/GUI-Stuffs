@@ -191,6 +191,8 @@ public class RenderUtils {
     public static void drawString(String text, float x, float y, float sizeX, float sizeY, Color color) {
         x /= div;
         y /= div;
+        sizeX /= div;
+        sizeY /= div;
         drawString0(text, x, y, new float[]{-2, -2}, new float[]{2, 2}, sizeX, sizeY, color);
     }
 

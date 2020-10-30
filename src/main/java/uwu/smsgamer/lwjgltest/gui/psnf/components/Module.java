@@ -39,11 +39,20 @@ public class Module extends Component {
                 case VALUES:
                     components.add(new ValuesComp(stuff, this, category, this));
                     break;
+                case CHOICE:
+                    components.add(new ChoiceComp(stuff, this, category, this));
+                    break;
+                case STRING:
+                    components.add(new StringComp(stuff, this, category, this));
+                    break;
                 case NUMBER:
                     components.add(new SliderComp(stuff, this, category, this));
                     break;
                 case BOOLEAN:
                     components.add(new BoolComp(stuff, this, category, this));
+                    break;
+                case COLOUR:
+                    components.add(new ColorComp(stuff, this, category, this));
                     break;
                 default:
                     components.add(new DComp(stuff, this, category, this));

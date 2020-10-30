@@ -29,5 +29,6 @@ public abstract class ValComp extends Component {
     @Override
     public void unclick() {
         mngr().currentComponent = prevComponent;
+        selected = false;
     }
 }

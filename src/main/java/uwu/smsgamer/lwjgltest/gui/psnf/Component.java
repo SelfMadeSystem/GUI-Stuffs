@@ -40,6 +40,10 @@ public abstract class Component {
         return opc;
     }
 
+    public boolean isActive() {
+        return mngr().currentComponent.equals(this);
+    }
+
     public int getReverseOpacity() {
         return 255-getOpacity();
     }

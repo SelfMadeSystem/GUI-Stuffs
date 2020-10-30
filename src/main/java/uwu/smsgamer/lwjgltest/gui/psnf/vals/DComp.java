@@ -26,9 +26,8 @@ public class DComp extends ValComp {
 
     @Override
     public void render() {
-        selected = mngr().currentComponent.equals(this);
         RenderUtils.drawRoundBorderedRect(x, y, x + WIDTH, y + HEIGHT, ROUND, EDGE_RAD,
-          selected ? Color.GRAY : Color.LIGHT_GRAY, Color.RED);
+          isActive() ? Color.GRAY : Color.LIGHT_GRAY, Color.RED);
     }
 
     @Override

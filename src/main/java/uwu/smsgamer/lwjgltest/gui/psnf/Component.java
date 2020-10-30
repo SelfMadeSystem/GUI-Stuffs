@@ -14,7 +14,7 @@ package uwu.smsgamer.lwjgltest.gui.psnf;
 public abstract class Component {
     public static final float WIDTH = 75;
     public static final float HEIGHT = 50;
-    public static final float ROUND = 5;
+    public static final float ROUND = 0;
     public static final float EDGE_RAD = 2;
 
     public float x;
@@ -25,8 +25,10 @@ public abstract class Component {
     public int opacity;
 
     public abstract void render();
+
     public abstract void click();
-    public void unclick(){
+
+    public void unclick() {
     }
 
     public void setOpacity(int o) {
@@ -35,7 +37,7 @@ public abstract class Component {
     }
 
     public int getOpacity() {
-        int opc =  (int) (prevOpacity + (mngr().getChange() * (opacity - prevOpacity)));
+        int opc = (int) (prevOpacity + (mngr().getChange() * (opacity - prevOpacity)));
         if (opc == opacity) prevOpacity = opacity;
         return opc;
     }
@@ -45,7 +47,7 @@ public abstract class Component {
     }
 
     public int getReverseOpacity() {
-        return 255-getOpacity();
+        return 255 - getOpacity();
     }
 
     public PSNFManager mngr() {

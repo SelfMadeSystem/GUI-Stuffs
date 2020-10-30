@@ -20,8 +20,6 @@ import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 
 import java.awt.*;
 
-import static uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager.CHANGE_TIME;
-
 public class SliderComp extends ValComp {
     private static final long CHANGE_TIME = 250L;
     public SliderComp(ValStuff valStuff, Module module, Category category, Component prevComponent) {
@@ -39,13 +37,15 @@ public class SliderComp extends ValComp {
         RenderUtils.drawRect(x + EDGE_RAD, y + EDGE_RAD,
           (float) (x + EDGE_RAD + ((WIDTH - EDGE_RAD * 2) * getValue())), y + HEIGHT - EDGE_RAD,
           isActive() ? Color.BLUE : Color.CYAN);
+        RenderUtils.drawString(String.valueOf(valStuff.name), x + WIDTH / 2, y + HEIGHT / 16 * 11, 14f, Color.WHITE);
+        RenderUtils.drawString(String.valueOf(valStuff.value), x + WIDTH / 2, y + HEIGHT / 16 * 5, 8f, Color.WHITE);
         if (isActive()) {
             if (InputManager.LEFT.justPressed()) {
                 changeValue(-1);
                 amount = 0;
             } else if (InputManager.LEFT.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
                 changeValue((int) -amount, -250);
-                amount+=0.6;
+                amount += 0.6;
             }
             if (InputManager.RIGHT.justPressed()) {
                 changeValue(1);

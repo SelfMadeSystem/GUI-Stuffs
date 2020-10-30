@@ -60,6 +60,7 @@ public class ValuesComp extends ValComp {
     public void render() {
         RenderUtils.drawRoundBorderedRect(x, y, x + WIDTH, y + HEIGHT, ROUND, EDGE_RAD,
           selected ? Color.GRAY : Color.BLUE, Color.RED);
+        RenderUtils.drawString(String.valueOf(valStuff.name), x + WIDTH / 2, y + HEIGHT / 2, 16f, Color.WHITE);
         if (selected) {
             mngr().cursorY = (lastSelect + 1 + ((select - lastSelect) * getChange()
             )) * -MULT_Y;

@@ -53,7 +53,8 @@ public class ChoiceComp extends ValComp {
                 component.render();
             }
         }
-        RenderUtils.drawString(String.valueOf(valStuff.value), x + WIDTH / 2, y + HEIGHT / 2, 10f, Color.WHITE);
+        RenderUtils.drawString(String.valueOf(valStuff.name), x + WIDTH / 2, y + HEIGHT / 16 * 11, 14f, Color.WHITE);
+        RenderUtils.drawString(String.valueOf(valStuff.value), x + WIDTH / 2, y + HEIGHT / 16 * 5, 8f, Color.WHITE);
         if (isActive()) {
             if (InputManager.UP.justPressed()) {
                 changeComponent(-1);
@@ -115,7 +116,7 @@ public class ChoiceComp extends ValComp {
         @Override
         public void render() {
             RenderUtils.drawRoundBorderedRect(x, y, x + WIDTH, y + HEIGHT, ROUND, EDGE_RAD, Color.LIGHT_GRAY, Color.RED);
-            RenderUtils.drawString(String.valueOf(choice), x + WIDTH / 2, y + HEIGHT / 2, 10f, Color.WHITE);
+            RenderUtils.drawString(String.valueOf(choice), x + WIDTH / 2, y + HEIGHT / 2, 16f, Color.WHITE);
         }
 
         @Override

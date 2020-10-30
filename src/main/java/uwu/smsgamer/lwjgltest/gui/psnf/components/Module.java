@@ -21,7 +21,8 @@ import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 import java.awt.*;
 import java.util.LinkedList;
 
-import static uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager.*;
+import static uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager.CHANGE_TIME;
+import static uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager.MULT_Y;
 
 public class Module extends Component {
     public final Category category;
@@ -59,6 +60,7 @@ public class Module extends Component {
             }
         }
     }
+
     public int select = -1;
     public int lastSelect = -1;
     public long timeAdd;
@@ -72,7 +74,8 @@ public class Module extends Component {
             new Color(127 + category.getReverseOpacity() / 2, 127 + category.getReverseOpacity() / 2,
               127 + category.getReverseOpacity() / 2, category.getOpacity()),
           new Color(255, 0, 0, category.getOpacity()));
-        if (mngr().selected && selected){
+        RenderUtils.drawString(String.valueOf(module), x + WIDTH / 2, y + HEIGHT / 2, 16f, new Color(255, 255, 255, category.getOpacity()));
+        if (mngr().selected && selected) {
             mngr().cursorY = (lastSelect + 1 + ((select - lastSelect) * getChange()
             )) * -MULT_Y;
             mngr().cursorX = 0;

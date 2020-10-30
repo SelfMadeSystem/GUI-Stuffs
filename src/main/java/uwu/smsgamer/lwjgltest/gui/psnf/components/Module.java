@@ -12,32 +12,111 @@
 package uwu.smsgamer.lwjgltest.gui.psnf.components;
 
 import uwu.smsgamer.lwjgltest.gui.psnf.Component;
+import uwu.smsgamer.lwjgltest.gui.psnf.*;
+import uwu.smsgamer.lwjgltest.gui.psnf.vals.DComp;
+import uwu.smsgamer.lwjgltest.input.InputManager;
+import uwu.smsgamer.lwjgltest.stuff.*;
 import uwu.smsgamer.lwjgltest.utils.RenderUtils;
 
 import java.awt.*;
+import java.util.LinkedList;
+
+import static uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager.CHANGE_TIME;
+import static uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager.MULT_Y;
 
 public class Module extends Component {
     public final Category category;
     public final String module;
     public final int index;
 
+    public LinkedList<ValComp> components = new LinkedList<>();
+
     public Module(Category category, String module, int index) {
         this.category = category;
         this.module = module;
         this.index = index;
+        for (ValStuff valStuff : Stuff.values.get(category.category).get(module)) {
+            components.add(new DComp(valStuff, this, category, this));
+        }
     }
+    public int select = -1;
+    public int lastSelect = -1;
+    public long timeAdd;
+    public long changeTime;
 
     @Override
     public void render() {
         RenderUtils.drawRoundBorderedRect(x, y, x + WIDTH, y + HEIGHT, ROUND, EDGE_RAD,
-          selected ? new Color(255-category.getOpacity()/2, 255-category.getOpacity()/2,
-            255-category.getOpacity()/2, category.getOpacity()) :
-            new Color(127+category.getReverseOpacity()/2, 127+category.getReverseOpacity()/2,
-              127+category.getReverseOpacity()/2, category.getOpacity()),
+          selected ? new Color(255 - category.getOpacity() / 2, 255 - category.getOpacity() / 2,
+            255 - category.getOpacity() / 2, category.getOpacity()) :
+            new Color(127 + category.getReverseOpacity() / 2, 127 + category.getReverseOpacity() / 2,
+              127 + category.getReverseOpacity() / 2, category.getOpacity()),
           new Color(255, 0, 0, category.getOpacity()));
+        if (mngr().selected && selected){
+            mngr().cursorY = (lastSelect + 1 + ((select - lastSelect) * getChange()
+            )) * -MULT_Y;
+            for (int i = 0; i < components.size(); i++) {
+                ValComp component = components.get(i);
+                component.x = x;
+                component.y = y - (1 + i) * PSNFManager.MULT_Y;
+                component.render();
+            }
+        }
+        if (mngr().selected && selected && mngr().currentComponent.equals(this)) {
+            if (InputManager.UP.justPressed()) {
+                changeComponent(-1);
+            } else if (InputManager.UP.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
+                changeComponent(-1, -250);
+            }
+            if (InputManager.DOWN.justPressed()) {
+                changeComponent(1);
+            } else if (InputManager.DOWN.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
+                changeComponent(1, -250);
+            }
+        }
     }
 
     @Override
     public void click() {
+        if (mngr().selected) {
+            if (select == -1) {
+                unclick();
+                return;
+            }
+            System.out.println(components.get(select));
+            mngr().currentComponent = components.get(select);
+        } else {
+            mngr().selected = true;
+            mngr().currentComponent = this;
+            selected = true;
+        }
+    }
+
+    @Override
+    public void unclick() {
+        mngr().selected = false;
+        mngr().cursorY = 0;
+    }
+
+    public void changeComponent(int diff) {
+        changeComponent(diff, 0);
+    }
+
+    public void changeComponent(int diff, long timeAdd) {
+        lastSelect = select;
+        select += diff;
+        if (select >= -1 && select < components.size()) {
+            this.timeAdd = timeAdd;
+            changeTime = System.currentTimeMillis() + Math.min(CHANGE_TIME - getChangeTime(), CHANGE_TIME) + timeAdd;
+        } else if (select >= components.size()) select = components.size() - 1;
+        else select = -1;
+    }
+
+    public float getChange() {
+        return (1 - (getChangeTime() / (float) (CHANGE_TIME + timeAdd)));
+    }
+
+    public long getChangeTime() {
+        return Math.max(0, changeTime - System.currentTimeMillis());
     }
 }

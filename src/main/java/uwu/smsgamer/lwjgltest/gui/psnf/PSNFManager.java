@@ -26,7 +26,7 @@ public class PSNFManager {
     public static final float MULT_Y = 50;
     public static final float MULT_X = 75;
     public static final float OFFSET_X = -100;
-    public static final float OFFSET_Y = 100;
+    public static final float OFFSET_Y = 150;
 
     private static PSNFManager instance;
 
@@ -46,31 +46,46 @@ public class PSNFManager {
     public int lastSelect;
     public long timeAdd;
     public long changeTime;
+    public float cursorX = 0;
+    public float cursorY = 0;
 
     public LinkedList<Category> categories = new LinkedList<>();
+    public Component currentComponent;
+    public boolean selected;
 
     public void render() {
-        for (int i = 0; i < categories.size(); i++) {
-            Category category = categories.get(i);
-            category.selected = (select == i);
+        if (selected) {
+            Category category = categories.get(select);
             category.x = OFFSET_X;
-            category.y = OFFSET_Y - (i - lastSelect - ((select - lastSelect) * getChange()
-            )) * MULT_Y;
+            category.y = OFFSET_Y;
             category.render();
+        } else {
+            for (int i = 0; i < categories.size(); i++) {
+                Category category = categories.get(i);
+                category.selected = (select == i);
+                category.x = OFFSET_X;
+                category.y = OFFSET_Y - (i - lastSelect - ((select - lastSelect) * getChange()
+                )) * MULT_Y;
+                category.render();
+            }
         }
-        RenderUtils.drawRectBorder(OFFSET_X - Component.EDGE_RAD, OFFSET_Y - Component.EDGE_RAD,
-          OFFSET_X + Component.WIDTH + Component.EDGE_RAD, OFFSET_Y + Component.HEIGHT + Component.EDGE_RAD,
+        RenderUtils.drawRectBorder(OFFSET_X - Component.EDGE_RAD + cursorX, OFFSET_Y - Component.EDGE_RAD + cursorY,
+          OFFSET_X + Component.WIDTH + Component.EDGE_RAD + cursorX, OFFSET_Y + Component.HEIGHT + Component.EDGE_RAD + cursorY,
           Component.EDGE_RAD, Color.WHITE);
-        if (InputManager.UP.justPressed()) {
-            changeCategory(-1);
-        } else if (InputManager.UP.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
-            changeCategory(-1, -250);
+        if (!selected) {
+            if (InputManager.UP.justPressed()) {
+                changeCategory(-1);
+            } else if (InputManager.UP.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
+                changeCategory(-1, -250);
+            }
+            if (InputManager.DOWN.justPressed()) {
+                changeCategory(1);
+            } else if (InputManager.DOWN.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
+                changeCategory(1, -250);
+            }
         }
-        if (InputManager.DOWN.justPressed()) {
-            changeCategory(1);
-        } else if (InputManager.DOWN.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
-            changeCategory(1, -250);
-        }
+        if (InputManager.SELECT.justPressed()) currentComponent.click();
+        if (InputManager.BACK.justPressed()) currentComponent.unclick();
     }
 
     public void changeCategory(int diff) {

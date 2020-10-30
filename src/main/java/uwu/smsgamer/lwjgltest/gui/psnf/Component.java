@@ -26,6 +26,8 @@ public abstract class Component {
 
     public abstract void render();
     public abstract void click();
+    public void unclick(){
+    }
 
     public void setOpacity(int o) {
         prevOpacity = opacity;

@@ -56,20 +56,25 @@ public class Category extends Component {
         for (int i = 0; i < modules.size(); i++) {
             Module module = modules.get(i);
             module.selected = (select == i);
+            if (index == mngr().select && module.selected && !mngr().selected) {
+                mngr().currentComponent = module;
+            }
             module.x = x + (i - lastSelect - ((select - lastSelect) * getChange()
             )) * PSNFManager.MULT_X;
             module.y = y;
             module.render();
         }
-        if (InputManager.LEFT.justPressed()) {
-            changeModule(-1);
-        } else if (InputManager.LEFT.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
-            changeModule(-1, -250);
-        }
-        if (InputManager.RIGHT.justPressed()) {
-            changeModule(1);
-        } else if (InputManager.RIGHT.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
-            changeModule(1, -250);
+        if (index == mngr().select && !mngr().selected) {
+            if (InputManager.LEFT.justPressed()) {
+                changeModule(-1);
+            } else if (InputManager.LEFT.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
+                changeModule(-1, -250);
+            }
+            if (InputManager.RIGHT.justPressed()) {
+                changeModule(1);
+            } else if (InputManager.RIGHT.pressTimeMS() - CHANGE_TIME * 2 > 0 && getChangeTime() <= 0) {
+                changeModule(1, -250);
+            }
         }
 //        RenderUtils.drawRoundBorderedRect(x, y, x + WIDTH, y + HEIGHT, ROUND, EDGE_RAD,
 //          selected ? new Color(255-getOpacity()/2, 255-getOpacity()/2, 255-getOpacity()/2, getOpacity()) :

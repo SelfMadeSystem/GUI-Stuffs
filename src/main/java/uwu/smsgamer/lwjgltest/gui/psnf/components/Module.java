@@ -39,6 +39,9 @@ public class Module extends Component {
                 case VALUES:
                     components.add(new ValuesComp(stuff, this, category, this));
                     break;
+                case BOOLEAN:
+                    components.add(new BoolComp(stuff, this, category, this));
+                    break;
                 default:
                     components.add(new DComp(stuff, this, category, this));
             }
@@ -90,6 +93,7 @@ public class Module extends Component {
                 return;
             }
             Component component = components.get(select);
+            component.click();
             mngr().currentComponent = component;
             component.selected = true;
         } else {

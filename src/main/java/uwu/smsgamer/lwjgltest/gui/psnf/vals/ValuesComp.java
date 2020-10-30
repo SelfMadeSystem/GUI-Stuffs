@@ -33,6 +33,9 @@ public class ValuesComp extends ValComp {
                 case VALUES:
                     components.add(new ValuesComp(stuff, module, category, this));
                     break;
+                case BOOLEAN:
+                    components.add(new BoolComp(stuff, module, category, this));
+                    break;
                 default:
                     components.add(new DComp(stuff, module, category, this));
             }
@@ -75,7 +78,9 @@ public class ValuesComp extends ValComp {
 
     @Override
     public void click() {
+        if (mngr().currentComponent != this) return;
         Component component = this.components.get(select);
+        component.click();
         mngr().currentComponent = component;
         component.selected = true;
     }

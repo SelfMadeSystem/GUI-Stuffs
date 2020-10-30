@@ -39,6 +39,9 @@ public class Module extends Component {
                 case VALUES:
                     components.add(new ValuesComp(stuff, this, category, this));
                     break;
+                case NUMBER:
+                    components.add(new SliderComp(stuff, this, category, this));
+                    break;
                 case BOOLEAN:
                     components.add(new BoolComp(stuff, this, category, this));
                     break;

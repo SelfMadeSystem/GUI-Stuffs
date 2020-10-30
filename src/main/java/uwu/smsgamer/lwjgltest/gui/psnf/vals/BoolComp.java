@@ -26,6 +26,7 @@ public class BoolComp extends ValComp {
 
     @Override
     public void render() {
+        if (isActive()) unclick();
         RenderUtils.drawRoundBorderedRect(x, y, x + WIDTH, y + HEIGHT, ROUND, EDGE_RAD,
           ((boolean) valStuff.value) ? Color.GREEN : Color.RED, Color.RED);
     }

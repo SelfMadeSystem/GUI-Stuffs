@@ -33,6 +33,9 @@ public class ValuesComp extends ValComp {
                 case VALUES:
                     components.add(new ValuesComp(stuff, module, category, this));
                     break;
+                case NUMBER:
+                    components.add(new SliderComp(stuff, module, category, this));
+                    break;
                 case BOOLEAN:
                     components.add(new BoolComp(stuff, module, category, this));
                     break;
@@ -50,7 +53,7 @@ public class ValuesComp extends ValComp {
     @Override
     public void render() {
         RenderUtils.drawRoundBorderedRect(x, y, x + WIDTH, y + HEIGHT, ROUND, EDGE_RAD,
-          isActive() ? Color.GRAY : Color.BLUE, Color.RED);
+          selected ? Color.GRAY : Color.BLUE, Color.RED);
         if (selected) {
             mngr().cursorY = (lastSelect + 1 + ((select - lastSelect) * getChange()
             )) * -MULT_Y;

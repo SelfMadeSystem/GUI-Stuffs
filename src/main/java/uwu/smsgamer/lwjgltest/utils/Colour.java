@@ -9,6 +9,7 @@
 package uwu.smsgamer.lwjgltest.utils;
 
 import java.awt.*;
+import java.util.Objects;
 
 //thx https://stackoverflow.com/questions/3018313/algorithm-to-convert-rgb-to-hsv-and-hsv-to-rgb-in-range-0-255-for-both
 public class Colour {
@@ -37,6 +38,26 @@ public class Colour {
                 throw new IllegalArgumentException(e.getMessage() + "; " + r + " " + g + " " + b);
             }
         }
+
+        @Override
+        public RGB clone() {
+            return new RGB(r, g, b);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            RGB rgb = (RGB) o;
+            return MathUtils.approxEquals(rgb.r, r, 0.005) &&
+              MathUtils.approxEquals(rgb.g, g, 0.005) &&
+              MathUtils.approxEquals(rgb.b, b, 0.005);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(r, g, b);
+        }
     }
 
     public static class HSV {
@@ -51,6 +72,30 @@ public class Colour {
             this.h = h;
             this.s = s;
             this.v = v;
+        }
+
+        public Color toColor() {
+            return hsv2rgb(this).toColor();
+        }
+
+        @Override
+        public HSV clone() {
+            return new HSV(h, s, v);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            HSV hsv = (HSV) o;
+            return MathUtils.approxEquals(hsv.h, h, 1) &&
+              MathUtils.approxEquals(hsv.s, s, 0.005) &&
+              MathUtils.approxEquals(hsv.v, v, 0.005);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(h, s, v);
         }
     }
 

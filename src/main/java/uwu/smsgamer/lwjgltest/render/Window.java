@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL;
 import uwu.smsgamer.lwjgltest.Main;
 import uwu.smsgamer.lwjgltest.gui.block.BlockManager;
 import uwu.smsgamer.lwjgltest.gui.click.ClickGUIManager;
+import uwu.smsgamer.lwjgltest.gui.colour.ColourManager;
 import uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager;
 import uwu.smsgamer.lwjgltest.gui.radial.Ring;
 import uwu.smsgamer.lwjgltest.input.*;
@@ -91,7 +92,12 @@ public class Window {
     }
 
     private void render() {
-        renderPSNF();
+        renderColour();
+    }
+
+    private void renderColour() {
+        RenderUtils.div = 250f;
+        ColourManager.getInstance().render();
     }
 
     private void renderPSNF() {

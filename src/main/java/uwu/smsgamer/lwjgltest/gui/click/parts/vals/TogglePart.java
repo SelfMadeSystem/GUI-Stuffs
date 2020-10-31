@@ -34,8 +34,8 @@ public class TogglePart extends ValPart {
               clicking ? (((boolean) valStuff.value) ? ON_COLOR_CLICK : OFF_COLOR_CLICK) :
                 (notOverridden() && hovering() ? (((boolean) valStuff.value) ? ON_COLOR_HOVER : OFF_COLOR_HOVER) :
                   (((boolean) valStuff.value) ? ON_COLOR : OFF_COLOR)), BORDER_COLOR);
-            RenderUtils.drawString(this.name, getX() + indent, getY(), new float[]{-5000, maxY + edgeRadius},
-              new float[]{5000, category.y}, 0.1F, Color.WHITE);
+            RenderUtils.drawString(this.name, getX() - (mainSize[0]) / 2F + edgeRadius + 2 + indent * 2, getY(), new float[]{-5000, maxY + edgeRadius},
+              new float[]{5000, category.y}, 0.1F, -1, Color.WHITE);
         }
     }
 

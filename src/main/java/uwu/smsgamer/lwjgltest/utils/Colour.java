@@ -49,9 +49,9 @@ public class Colour {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             RGB rgb = (RGB) o;
-            return MathUtils.approxEquals(rgb.r, r, 0.005) &&
-              MathUtils.approxEquals(rgb.g, g, 0.005) &&
-              MathUtils.approxEquals(rgb.b, b, 0.005);
+            return MathUtils.approxEquals(rgb.r, r, 0.002) &&
+              MathUtils.approxEquals(rgb.g, g, 0.002) &&
+              MathUtils.approxEquals(rgb.b, b, 0.002);
         }
 
         @Override
@@ -89,8 +89,8 @@ public class Colour {
             if (o == null || getClass() != o.getClass()) return false;
             HSV hsv = (HSV) o;
             return MathUtils.approxEquals(hsv.h, h, 1) &&
-              MathUtils.approxEquals(hsv.s, s, 0.005) &&
-              MathUtils.approxEquals(hsv.v, v, 0.005);
+              MathUtils.approxEquals(hsv.s, s, 0.002) &&
+              MathUtils.approxEquals(hsv.v, v, 0.002);
         }
 
         @Override

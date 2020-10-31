@@ -12,10 +12,10 @@
 package uwu.smsgamer.lwjgltest.gui.colour;
 
 public abstract class ColourComponent {
-    public static final int WIDTH = 500 / 9;
-    public static final int HEIGHT = 500 / 3;
+    public static final int WIDTH = 500 / 27;
+    public static final int HEIGHT = 500;
     public static final int X_OFFSET = -250;
-    public static final int Y_OFFSET = -250 / 3;
+    public static final int Y_OFFSET = -250;
 
     public abstract void render();
 

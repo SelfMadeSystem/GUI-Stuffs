@@ -52,7 +52,7 @@ public class ModuleBlock extends SubBlock {
         for (int i = 0; i < amount; i++) {
             float minY = ((y + (height / 2 * (i - amount / 2f))));
             float maxY = (y + (height / 2 * (i - amount / 2f)) + (height / 2));
-            if (isHoveringRaw(minX, maxX, minY+edgeRadius/3, maxY-edgeRadius/3)) hover = i;
+            if (isHoveringRaw(minX, maxX, minY + edgeRadius / 3, maxY - edgeRadius / 3)) hover = i;
             Color c = selected == i && !this.modules[i].type.equals(ValStuff.Type.NUMBER) ? SELECTED_COLOR :
               hover == i && child == null && selected == -1 ? HOVER_COLOR : MAIN_COLOR;
             switch (this.modules[i].type) {
@@ -72,6 +72,7 @@ public class ModuleBlock extends SubBlock {
             }
             drawRoundBorderedRect(minX, minY, maxX, maxY, edgeRound, edgeRadius, c, BORDERED_COLOR);
             Color stC = Color.BLACK;
+            final float y1 = minY + (maxY - minY) / 64 * 21;
             switch (this.modules[i].type) {
 
                 case NUMBER: {
@@ -88,24 +89,25 @@ public class ModuleBlock extends SubBlock {
                         float xX = (float) (minX + edgeRadius + ((maxX - minX - edgeRadius * 2) *
                           (((double) this.modules[i].value - min + (step / 2)) / (max - min))));
                         if (xX > maxX - edgeRadius) xX = maxX - edgeRadius;
-                        drawRoundRect(minX + edgeRadius, minY + edgeRadius, xX,
-                          maxY - edgeRadius, edgeRound, SLIDER_HINT_AFTER);
+                        drawRect(minX + edgeRadius, minY + edgeRadius, xX,
+                          maxY - edgeRadius, SLIDER_HINT_AFTER);
                     }
-                    drawRoundRect(minX + edgeRadius, minY + edgeRadius, (float) (minX + edgeRadius + ((maxX - minX - edgeRadius * 2) *
+                    drawRect(minX + edgeRadius, minY + edgeRadius, (float) (minX + edgeRadius + ((maxX - minX - edgeRadius * 2) *
                         (((double) this.modules[i].value - min) / (max - min)))),
-                      maxY - edgeRadius, edgeRound, this.hover == i && this.selected == -1 ? SLIDER_COLOR_HOVER : SLIDER_COLOR);
+                      maxY - edgeRadius, this.hover == i && this.selected == -1 ? SLIDER_COLOR_HOVER : SLIDER_COLOR);
                     if (this.selected == i) {
                         float xX = (float) (minX + edgeRadius + ((maxX - minX - edgeRadius * 2) *
                           (((double) this.modules[i].value - min - (step / 2)) / (max - min))));
                         if (xX < minX + edgeRadius) xX = minX + edgeRadius;
-                        drawRoundRect(minX + edgeRadius, minY + edgeRadius, xX,
-                          maxY - edgeRadius, edgeRound, SLIDER_HINT_BEFORE);
+                        drawRect(minX + edgeRadius, minY + edgeRadius, xX,
+                          maxY - edgeRadius, SLIDER_HINT_BEFORE);
                     }
-                    drawString(String.valueOf(modules[i].value), x, minY + (maxY - minY) / 2 - 14, 0.04f, Color.BLACK);
+                    drawString(String.valueOf(modules[i].value), minX + edgeRadius + 2, y1, 9.75F, -1, Color.BLACK);
+                    drawString(modules[i].min + "-" + modules[i].max, maxX - edgeRadius - 2, y1, 9.75F, 1, Color.BLACK);
                     break;
                 }
                 case STRING: {
-                    drawString(String.valueOf(modules[i].value), x, minY + (maxY - minY) / 2 - 14, 0.035f, Color.BLACK);
+                    drawString(String.valueOf(modules[i].value), minX + edgeRadius + 2, y1, 9.75F, -1, Color.BLACK);
                     break;
                 }
                 case COLOUR: {
@@ -114,7 +116,7 @@ public class ModuleBlock extends SubBlock {
                     break;
                 }
             }
-            drawString(modules[i].name, x, minY + (maxY - minY) / 2 + 12, 0.06f, stC);
+            drawString(modules[i].name, minX + edgeRadius + 2, minY + (maxY - minY) / 64 * 41, 15, -1, stC);
         }
         drawTop(height * (amount / 2f) / 2);
     }

@@ -170,38 +170,57 @@ public class RenderUtils {
         glEnd();
     }
 
-    public static void drawString(String text, float x, float y, float[] min, float[] max, float size, Color color) {
-        drawString(text, x, y, min, max, size, size, color);
+    public static void drawString(String text, float x, float y, float[] min, float[] max, float size, int anchor, Color color) {
+        drawString(text, x, y, min, max, size, size, anchor, color);
     }
 
-    public static void drawString(String text, float x, float y, float[] min, float[] max, float sizeX, float sizeY, Color color) {
+    public static void drawString(String text, float x, float y, float[] min, float[] max, float sizeX, float sizeY, int anchor, Color color) {
         x /= div;
         y /= div;
         min[0] /= div;
         min[1] /= div;
         max[0] /= div;
         max[1] /= div;
-        drawString0(text, x, y, min, max, sizeX, sizeY, color);
+        drawString0(text, x, y, min, max, sizeX, sizeY, anchor, color);
     }
 
-    public static void drawString(String text, float x, float y, float size, Color color) {
-        drawString(text, x, y, size, size, color);
+    public static void drawString(String text, float x, float y, float size, int anchor, Color color) {
+        drawString(text, x, y, size, size, anchor, color);
     }
 
-    public static void drawString(String text, float x, float y, float sizeX, float sizeY, Color color) {
+    public static void drawString(String text, float x, float y, float sizeX, float sizeY, int anchor, Color color) {
         x /= div;
         y /= div;
         sizeX /= div;
         sizeY /= div;
-        drawString0(text, x, y, new float[]{-2, -2}, new float[]{2, 2}, sizeX, sizeY, color);
+        drawString0(text, x, y, new float[]{-2, -2}, new float[]{2, 2}, sizeX, sizeY, anchor, color);
     }
 
-    public static void drawString0(String text, float x, float y, float[] min, float[] max, float sizeX, float sizeY, Color color) {
+    /**
+     * Draws shit
+     *
+     * @param text The text to draw
+     * @param x the X position on the screen
+     * @param y the Y position
+     * @param min the min positions the text can be rendered at
+     * @param max the max positions the text can be rendered at
+     * @param sizeX the size in the X value
+     * @param sizeY the size in the Y value
+     * @param anchor the way the text is anchored. -1 left, 0 middle, 1 right
+     * @param color the colour of the text
+     */
+    public static void drawString0(String text, float x, float y, float[] min, float[] max, float sizeX, float sizeY, int anchor, Color color) {
         Font font = new Font("Monospaced", Font.PLAIN, 1);
         GlyphVector vector = font.createGlyphVector(new FontRenderContext(new AffineTransform(), false, false), text);
         Rectangle2D rect = vector.getVisualBounds();
-        x -= rect.getWidth() / 2 * sizeX;
         y -= rect.getHeight() / 2 * sizeY;
+        switch (anchor) {
+            case 0:
+                x -= rect.getWidth() / 2 * sizeX;
+                break;
+            case 1:
+                x -= rect.getWidth() * sizeX;
+        }
         Shape outline = vector.getOutline();
         PathIterator pathIterator = outline.getPathIterator(new AffineTransform());
         glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);

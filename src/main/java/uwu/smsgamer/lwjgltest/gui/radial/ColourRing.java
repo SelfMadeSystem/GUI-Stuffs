@@ -67,8 +67,8 @@ public class ColourRing extends Ring {
             return;
         Color c = (0.2126 * center.getRed() + 0.7152 * center.getGreen() + 0.0722 * center.getBlue() > 128) ? Color.BLACK : Color.WHITE;
 
-        drawString(val.name, 0, 0.1f, 0.1f, c);
-        drawString(String.format("#%02x%02x%02x", center.getRed(), center.getGreen(), center.getBlue()), 0, -0.07f, 0.06f, c);
+        drawString(val.name, 0, 0.1f, 0.1f, 0, c);
+        drawString(String.format("#%02x%02x%02x", center.getRed(), center.getGreen(), center.getBlue()), 0, -0.07f, 0.06f, 0, c);
         int spa = 120;
         hover = (int) (rot / spa);
         if (over == 1) {

@@ -63,7 +63,7 @@ public class CategoryPart extends Part {
         RenderUtils.drawRoundBorderedRect(this.x - (getSize()[0] / 2F), this.y - (getSize()[1] / 2F),
           this.x + (getSize()[0] / 2F), this.y + (getSize()[1] / 2F), 0, 2,
           notOverridden() && hoveringTop() || clicking ? TOP_COLOR_HOVER : TOP_COLOR, TOP_BORDER_COLOR);
-        RenderUtils.drawString(this.name, this.x, this.y, 0.09F, 0.06F, Color.BLACK);
+        RenderUtils.drawString(this.name, this.x, this.y, 22.5F, 15F, 0, Color.WHITE);
     }
 
     boolean justOpened = false;

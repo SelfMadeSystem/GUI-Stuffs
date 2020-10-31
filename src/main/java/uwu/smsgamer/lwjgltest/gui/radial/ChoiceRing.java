@@ -41,10 +41,10 @@ public class ChoiceRing extends Ring {
         if (in) {
             hover = (int) (rot / spa);
             if (hover == amount) hover = 0;
-            if (over == 1) drawString(val.choices[hover], 0, 0, 0.15f, Color.WHITE);
+            if (over == 1) drawString(val.choices[hover], 0, 0, 0.15f, 0, Color.WHITE);
             else {
-                drawString(val.name, 0, 0.1f, 0.1f, Color.WHITE);
-                drawString((String) val.value, 0, -0.07f, 0.06f, Color.WHITE);
+                drawString(val.name, 0, 0.1f, 0.1f, 0, Color.WHITE);
+                drawString((String) val.value, 0, -0.07f, 0.06f, 0, Color.WHITE);
             }
         }
         for (int i = 0; i < amount; i++) {

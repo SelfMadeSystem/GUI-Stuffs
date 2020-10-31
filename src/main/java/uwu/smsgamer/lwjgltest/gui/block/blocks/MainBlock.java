@@ -44,7 +44,7 @@ public class MainBlock extends Block {
             if (child == null && isHoveringRaw(minX, maxX, minY + edgeRadius / 3, maxY - edgeRadius / 3)) hover = i;
             Color c = categories[i].equals("exit") ? hover == i ? new Color(200, 0, 0) : Color.RED : selected == i ? SELECTED_COLOR : hover == i && this.child == null ? HOVER_COLOR : MAIN_COLOR;
             drawRoundBorderedRect(minX, minY, maxX, maxY, edgeRound, edgeRadius, c, BORDERED_COLOR);
-            drawString(categories[i], x, minY + (maxY - minY) / 2, 0.08f, Color.BLACK);
+            drawString(categories[i], x, minY + (maxY - minY) / 2, 20, 0, Color.BLACK);
         }
     }
 

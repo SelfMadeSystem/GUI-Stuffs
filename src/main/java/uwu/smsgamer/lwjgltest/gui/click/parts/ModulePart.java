@@ -73,8 +73,8 @@ public class ModulePart extends Part {
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
               notOverridden() && hovering() ? MAIN_COLOR_HOVER : MAIN_COLOR, BORDER_COLOR);
-            RenderUtils.drawString(this.name, getX(), getY(), new float[]{-5000, maxY + edgeRadius},
-              new float[]{5000, category.y}, 0.1F, Color.WHITE);
+            RenderUtils.drawString(this.name, getX() - mainSize[0] / 2F + edgeRadius + 2, getY(),
+              new float[]{-5000, maxY + edgeRadius}, new float[]{5000, category.y}, 0.1F, -1, Color.WHITE);
         }
     }
 

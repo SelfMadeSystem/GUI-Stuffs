@@ -32,8 +32,9 @@ public class PPart extends ValPart {
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
               notOverridden() && hovering() ? Color.BLUE : Color.GREEN, Color.YELLOW);
-            RenderUtils.drawString(this.name, getX() + indent, getY(), new float[]{-5000, maxY + edgeRadius},
-              new float[]{5000, category.y}, 0.1F, Color.WHITE);
+            RenderUtils.drawString(this.name, getX() - (mainSize[0]) / 2F + edgeRadius + 2 + indent * 2,
+              getY(), new float[]{-5000, maxY + edgeRadius},
+              new float[]{5000, category.y}, 0.1F, -1, Color.WHITE);
         }
     }
 }

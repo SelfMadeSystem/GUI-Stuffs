@@ -74,7 +74,7 @@ public class Module extends Component {
             new Color(127 + category.getReverseOpacity() / 2, 127 + category.getReverseOpacity() / 2,
               127 + category.getReverseOpacity() / 2, category.getOpacity()),
           new Color(255, 0, 0, category.getOpacity()));
-        RenderUtils.drawString(String.valueOf(module), x + WIDTH / 2, y + HEIGHT / 2, 16f, new Color(255, 255, 255, category.getOpacity()));
+        RenderUtils.drawString(String.valueOf(module), x + WIDTH / 2, y + HEIGHT / 2, 16f, 1, new Color(255, 255, 255, category.getOpacity()));
         if (mngr().selected && selected) {
             mngr().cursorY = (lastSelect + 1 + ((select - lastSelect) * getChange()
             )) * -MULT_Y;

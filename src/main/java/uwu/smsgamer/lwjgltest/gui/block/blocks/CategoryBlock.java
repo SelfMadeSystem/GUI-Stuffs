@@ -43,7 +43,7 @@ public class CategoryBlock extends SubBlock {
             if (isHoveringRaw(minX, maxX, minY+edgeRadius/3, maxY-edgeRadius/3)) hover = i;
             Color c = selected == i ? SELECTED_COLOR : hover == i && child == null ? HOVER_COLOR : MAIN_COLOR;
             drawRoundBorderedRect(minX, minY, maxX, maxY, edgeRound, edgeRadius, c, BORDERED_COLOR);
-            drawString(categories[i], x, minY + (maxY - minY) / 2, 0.08f, Color.BLACK);
+            drawString(categories[i], minX + edgeRadius + 2, minY + (maxY - minY) / 2, 20, -1, Color.BLACK);
         }
     }
 

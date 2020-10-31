@@ -28,8 +28,8 @@ public class DComp extends ValComp {
     public void render() {
         RenderUtils.drawRoundBorderedRect(x, y, x + WIDTH, y + HEIGHT, ROUND, EDGE_RAD,
           isActive() ? Color.GRAY : Color.LIGHT_GRAY, Color.RED);
-        RenderUtils.drawString(String.valueOf(valStuff.name), x + WIDTH / 2, y + HEIGHT / 16 * 11, 14f, Color.WHITE);
-        RenderUtils.drawString(String.valueOf(valStuff.value), x + WIDTH / 2, y + HEIGHT / 16 * 5, 8f, Color.WHITE);
+        RenderUtils.drawString(String.valueOf(valStuff.name), x + WIDTH / 2, y + HEIGHT / 16 * 11, 14f, 1, Color.WHITE);
+        RenderUtils.drawString(String.valueOf(valStuff.value), x + WIDTH / 2, y + HEIGHT / 16 * 5, 8f, 1, Color.WHITE);
     }
 
     @Override

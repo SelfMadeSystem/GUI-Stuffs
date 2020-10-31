@@ -34,7 +34,7 @@ public abstract class SubBlock extends Block {
         float maxY = y + height + topHeight;
         RenderUtils.drawRect(minX, minY, maxX, maxY, TOP_COLOR);
 
-        RenderUtils.drawString(name, minX + (maxX - minX) / 2, minY + (maxY - minY) / 2, 0.04f, Color.BLACK);
+        RenderUtils.drawString(name, minX + (maxX - minX) / 2, minY + (maxY - minY) / 2, 10, 0, Color.BLACK);
         float w = topHeight - 4;
         minX = maxX - w;
         maxX = maxX - 2;

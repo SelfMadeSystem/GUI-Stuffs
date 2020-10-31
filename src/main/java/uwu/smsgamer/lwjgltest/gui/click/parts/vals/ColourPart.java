@@ -77,10 +77,13 @@ public class ColourPart extends ValPart {
               Math.min(category.y, Math.max(maxY, getY() - getSize()[1] / 2F)),
               getX() + getSize()[0] / 2F, Math.min(category.y, getY() + getSize()[1] / 2F), edgeRadius,
               (Color) valStuff.value, BORDER_COLOR);
-            RenderUtils.drawString(this.name, getX() + indent, getY() + getSize()[1] / 6F, new float[]{-5000, maxY + edgeRadius},
-              new float[]{5000, category.y}, 0.07F, Color.WHITE);
-            RenderUtils.drawString(String.format("#%02x%02x%02x", (int) (rgb.r * 255), (int) (rgb.g * 255), (int) (rgb.b * 255)), getX() + indent, getY() - getSize()[1] / 4F, new float[]{-5000, maxY + edgeRadius},
-              new float[]{5000, category.y}, 0.04F, Color.WHITE);
+            RenderUtils.drawString(this.name, getX() - (mainSize[0]) / 2F + edgeRadius + 2 + indent * 2,
+              getY() + getSize()[1] / 6F, new float[]{-5000, maxY + edgeRadius},
+              new float[]{5000, category.y}, 0.07F, -1, Color.WHITE);
+            RenderUtils.drawString(String.format("#%02x%02x%02x", (int) (rgb.r * 255), (int) (rgb.g * 255), (int) (rgb.b * 255)),
+              getX() - (mainSize[0]) / 2F + edgeRadius + 2 + indent * 2,
+              getY() - getSize()[1] / 4F, new float[]{-5000, maxY + edgeRadius},
+              new float[]{5000, category.y}, 0.04F, -1, Color.WHITE);
         }
         category.yAdd += open ? getSize()[0] + getSize()[1] : 0;
     }

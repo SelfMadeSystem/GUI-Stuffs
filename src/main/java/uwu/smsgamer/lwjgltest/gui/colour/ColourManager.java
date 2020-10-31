@@ -16,7 +16,7 @@ import uwu.smsgamer.lwjgltest.utils.Colour.*;
 
 import java.awt.*;
 
-import static uwu.smsgamer.lwjgltest.gui.colour.ColourComponent.HEIGHT;
+import static uwu.smsgamer.lwjgltest.gui.colour.ColourComponent.WIDTH;
 
 public class ColourManager {
     private static ColourManager instance;
@@ -69,42 +69,43 @@ public class ColourManager {
         bSlider.render();
         HSV hsv0 = hsv.clone();
         RGB rgb0 = rgb.clone();
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < HEIGHT; x++) {
+        int size = 500 - WIDTH * 6;
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
                 switch (centerSelect) {
                     case 0:
                         break;
                     case 1:
-                        hsv0.s = (float) x / HEIGHT;
-                        hsv0.v = (float) y / HEIGHT;
+                        hsv0.s = (float) x / size;
+                        hsv0.v = (float) y / size;
                         break;
                     case 2:
-                        hsv0.h = (float) x / HEIGHT * 360;
-                        hsv0.v = (float) y / HEIGHT;
+                        hsv0.h = (float) x / size * 360;
+                        hsv0.v = (float) y / size;
                         break;
                     case 3:
-                        hsv0.h = (float) x / HEIGHT * 360;
-                        hsv0.s = (float) y / HEIGHT;
+                        hsv0.h = (float) x / size * 360;
+                        hsv0.s = (float) y / size;
                         break;
                     case 4:
-                        rgb0.g = (float) x / HEIGHT;
-                        rgb0.b = (float) y / HEIGHT;
+                        rgb0.g = (float) x / size;
+                        rgb0.b = (float) y / size;
                         break;
                     case 5:
-                        rgb0.r = (float) x / HEIGHT;
-                        rgb0.b = (float) y / HEIGHT;
+                        rgb0.r = (float) x / size;
+                        rgb0.b = (float) y / size;
                         break;
                     case 6:
-                        rgb0.r = (float) x / HEIGHT;
-                        rgb0.g = (float) y / HEIGHT;
+                        rgb0.r = (float) x / size;
+                        rgb0.g = (float) y / size;
                         break;
                 }
                 if (centerSelect <= 3 ? hsv0.equals(hsv) : rgb0.equals(rgb)) {
-                    RenderUtils.drawRect(x - 1 - HEIGHT / 2F, y - HEIGHT / 2F, x - HEIGHT / 2F,
-                      y + 1 - HEIGHT / 2F, pointer);
+                    RenderUtils.drawRect(x - 1 - size / 2F, y - size / 2F, x - size / 2F,
+                      y + 1 - size / 2F, pointer);
                 } else {
-                    RenderUtils.drawRect(x - 1 - HEIGHT / 2F, y - HEIGHT / 2F, x - HEIGHT / 2F,
-                      y + 1 - HEIGHT / 2F, centerSelect <= 3 ? hsv0.toColor() : rgb0.toColor());
+                    RenderUtils.drawRect(x - 1 - size / 2F, y - size / 2F, x - size / 2F,
+                      y + 1 - size / 2F, centerSelect <= 3 ? hsv0.toColor() : rgb0.toColor());
                 }
             }
         }

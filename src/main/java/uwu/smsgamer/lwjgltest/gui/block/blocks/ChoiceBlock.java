@@ -44,7 +44,7 @@ public class ChoiceBlock extends SubBlock {
             if (isHoveringRaw(minX, maxX, minY+edgeRadius/3, maxY-edgeRadius/3)) hover = i;
             Color c = valStuff.value.equals(choices[i]) ? SELECTED_COLOR : hover == i && child == null ? HOVER_COLOR : MAIN_COLOR;
             drawRoundBorderedRect(minX, minY, maxX, maxY, edgeRound, edgeRadius, c, BORDERED_COLOR);
-            drawString(choices[i], x, minY + (maxY - minY) / 2, 0.08f, Color.BLACK);
+            drawString(choices[i], x, minY + (maxY - minY) / 2, 20, 0, Color.BLACK);
         }
     }
 

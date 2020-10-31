@@ -64,8 +64,8 @@ public class ValuesRing extends Ring {
             if (hover == amount) hover = 0;
 
             if (current != null) {
-                drawString(current.name, 0, 0.1f, 0.1f, Color.WHITE);
-                drawString(String.valueOf(current.value), 0, -0.07f, 0.06f, Color.WHITE);
+                drawString(current.name, 0, 0.1f, 0.1f, 1, Color.WHITE);
+                drawString(String.valueOf(current.value), 0, -0.07f, 0.06f, 1, Color.WHITE);
                 switch (current.type) {
                     case NUMBER: {
                         double pos = ((rot - currentH * spa) / spa);
@@ -82,18 +82,18 @@ public class ValuesRing extends Ring {
             } else {
                 if (over > 0) {
                     ValStuff selected = values[hover];
-                    drawString(selected.name, 0, 0.1f, 0.1f, Color.WHITE);
+                    drawString(selected.name, 0, 0.1f, 0.1f, 0, Color.WHITE);
                     switch (selected.type){
                         case COLOUR: {
                             Color c = (Color) selected.value;
-                            drawString(String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue()), 0, -0.07f, 0.06f, Color.WHITE);
+                            drawString(String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue()), 0, -0.07f, 0.06f, 0, Color.WHITE);
                             break;
                         }
                         default:
-                        drawString(String.valueOf(selected.value), 0, -0.07f, 0.06f, Color.WHITE);
+                            drawString(String.valueOf(selected.value), 0, -0.07f, 0.06f, 0, Color.WHITE);
                     }
                 } else {
-                    drawString(module, 0, 0f, 0.15f, Color.WHITE);
+                    drawString(module, 0, 0f, 0.15f, 0, Color.WHITE);
                 }
             }
         }

@@ -36,11 +36,11 @@ public class RGBSlider extends ColourComponent {
                     break;
             }
             if (mngr().rgb.equals(rgb)) {
-                RenderUtils.drawRect(X_OFFSET + WIDTH * (type + 6), Y_OFFSET + i,
-                  X_OFFSET + WIDTH * (type + 7), Y_OFFSET + i + 1, mngr().pointer);
+                RenderUtils.drawRect(-X_OFFSET - WIDTH * (type + 1), Y_OFFSET + i,
+                  -X_OFFSET - WIDTH * (type), Y_OFFSET + i + 1, mngr().pointer);
             } else {
-                RenderUtils.drawRect(X_OFFSET + WIDTH * (type + 6), Y_OFFSET + i,
-                  X_OFFSET + WIDTH * (type + 7), Y_OFFSET + i + 1, rgb.toColor());
+                RenderUtils.drawRect(-X_OFFSET - WIDTH * (type + 1), Y_OFFSET + i,
+                  -X_OFFSET - WIDTH * (type), Y_OFFSET + i + 1, rgb.toColor());
             }
         }
     }

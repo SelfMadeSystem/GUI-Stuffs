@@ -44,8 +44,8 @@ public class ModulesRing extends Ring {
         if (in) {
             hover = (int) (rot / spa);
             if (hover == amount) hover = 0;
-            if (over == 1) drawString(modules[hover], 0, 0, 0.15f, Color.WHITE);
-            else drawString(category, 0, 0, 0.15f, Color.WHITE);
+            if (over == 1) drawString(modules[hover], 0, 0, 0.15f, 0, Color.WHITE);
+            else drawString(category, 0, 0, 0.15f, 0, Color.WHITE);
         }
         for (int i = 0; i < amount; i++) {
             Color circleColor = over == 1 && hover == i ? secondColorHighlight : secondColor;

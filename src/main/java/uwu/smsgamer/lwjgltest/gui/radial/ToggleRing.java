@@ -38,8 +38,8 @@ public class ToggleRing extends Ring {
         if (lastSwitch < switchSpeed) div = in ? (lastSwitch) / switchSpeed : 1 - (lastSwitch) / switchSpeed;
         float add = in ? 0 : (360 - 360 * div);
         if (in) {
-            drawString(value.name, 0, 0.1f, 0.1f, Color.WHITE);
-            drawString(String.valueOf(value.value), 0, -0.07f, 0.06f, Color.WHITE);
+            drawString(value.name, 0, 0.1f, 0.1f, 0, Color.WHITE);
+            drawString(String.valueOf(value.value), 0, -0.07f, 0.06f, 0, Color.WHITE);
             if (mouseDown && over == 1) {
                 drawCircle(0, 0, 0.98f, 0.77f, add, 360 * div + add, 0f, value() ? onColorC : offColorC);
             } else {

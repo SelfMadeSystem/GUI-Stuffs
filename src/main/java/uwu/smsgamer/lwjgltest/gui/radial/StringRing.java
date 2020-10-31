@@ -46,7 +46,7 @@ public class StringRing extends Ring {
             spa = 360 / amount;
             hover = (int) ((MathUtils.wrapAngle180(rot - r + 180) + 180) / spa);
             if (hover == amount) hover = 0;
-            RenderUtils.drawString(String.valueOf(val.value), 0, 0, 0.08f, Color.WHITE);
+            RenderUtils.drawString(String.valueOf(val.value), 0, 0, 0.08f, 0, Color.WHITE);
         } else r = 0;
         drawCircle(0, 0, 1.01f, 0.74898f, add, (360 * div) + add, 0, new Color(10, 10, 10));
         for (int i = 0; i < amount; i++) {

@@ -80,7 +80,7 @@ public class SliderRing extends Ring {
                 drawCircle(0, 0, 0.98f, 0.77f, 0,
                   (float) ((val() + (step / 2) - min) / (max - min) * 360), 0.2f * div, sliderHintAfter);
             }
-            RenderUtils.drawString(String.valueOf(val()), 0, 0, 0.25f, Color.WHITE);
+            RenderUtils.drawString(String.valueOf(val()), 0, 0, 0.25f, 0, Color.WHITE);
         }
         Color color = !holding && over == 1 && in ? sliderColorHover : sliderColor;
         drawCircle(0, 0, 0.98f, 0.77f, add, sda * div + add, 0.2f * div, color);

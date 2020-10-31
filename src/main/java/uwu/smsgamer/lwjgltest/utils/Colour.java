@@ -61,7 +61,7 @@ public class Colour {
     }
 
     public static class HSV {
-        public double h;       // angle in degrees
+        public double h;       // angle in degrees between 0 and 360
         public double s;       // a fraction between 0 and 1
         public double v;       // a fraction between 0 and 1
 

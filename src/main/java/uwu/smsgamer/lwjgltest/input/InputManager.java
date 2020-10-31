@@ -25,9 +25,9 @@ public class InputManager {
     public static InputType RIGHT = new InputType(k(GLFW_KEY_D), k(GLFW_KEY_RIGHT));
     public static InputType SELECT = new InputType(k(GLFW_KEY_ENTER), k(GLFW_KEY_SPACE), m(GLFW_MOUSE_BUTTON_LEFT));
     public static InputType BACK = new InputType(k(GLFW_KEY_ESCAPE), m(GLFW_MOUSE_BUTTON_RIGHT));
-//    public static InputType ML = new InputType(m(GLFW_MOUSE_BUTTON_LEFT));
-//    public static InputType MR = new InputType(m(GLFW_MOUSE_BUTTON_RIGHT));
-    private static final InputType[] loop = new InputType[]{UP, DOWN, LEFT, RIGHT, SELECT, BACK};
+    public static InputType ML = new InputType(m(GLFW_MOUSE_BUTTON_LEFT));
+    public static InputType MR = new InputType(m(GLFW_MOUSE_BUTTON_RIGHT));
+    private static final InputType[] loop = new InputType[]{UP, DOWN, LEFT, RIGHT, SELECT, BACK, ML, MR};
 
     public static void update() {
         MouseHelper.update();

@@ -92,7 +92,7 @@ public class Window {
     }
 
     private void render() {
-        renderRing();
+        renderColour();
     }
 
     private void renderColour() {

@@ -24,9 +24,10 @@ import java.util.*;
 public class PSNFManager {
     public static final long CHANGE_TIME = 350L;
     public static final float MULT_Y = 50;
-    public static final float MULT_X = 75;
+    public static final float MULT_X = 100;
     public static final float OFFSET_X = -100;
     public static final float OFFSET_Y = 150;
+    public static final float CURSOR_WIDTH = 2;
 
     private static PSNFManager instance;
 
@@ -69,9 +70,9 @@ public class PSNFManager {
                 category.render();
             }
         }
-        RenderUtils.drawRectBorder(OFFSET_X - Component.EDGE_RAD + cursorX, OFFSET_Y - Component.EDGE_RAD + cursorY,
-          OFFSET_X + Component.WIDTH + Component.EDGE_RAD + cursorX, OFFSET_Y + Component.HEIGHT + Component.EDGE_RAD + cursorY,
-          Component.EDGE_RAD, Color.WHITE);
+        RenderUtils.drawRectBorder(OFFSET_X - CURSOR_WIDTH + cursorX, OFFSET_Y - CURSOR_WIDTH + cursorY,
+          OFFSET_X + Component.WIDTH + CURSOR_WIDTH + cursorX, OFFSET_Y + Component.HEIGHT + CURSOR_WIDTH + cursorY,
+          CURSOR_WIDTH, Color.WHITE);
         if (!selected) {
             if (InputManager.UP.justPressed()) {
                 changeCategory(-1);

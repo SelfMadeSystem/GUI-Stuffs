@@ -16,7 +16,7 @@ import uwu.smsgamer.lwjgltest.gui.psnf.*;
 import uwu.smsgamer.lwjgltest.gui.psnf.components.*;
 import uwu.smsgamer.lwjgltest.input.InputManager;
 import uwu.smsgamer.lwjgltest.stuff.ValStuff;
-import uwu.smsgamer.lwjgltest.utils.RenderUtils;
+import uwu.smsgamer.lwjgltest.utils.*;
 
 import java.awt.*;
 
@@ -37,8 +37,9 @@ public class SliderComp extends ValComp {
         RenderUtils.drawRect(x + EDGE_RAD, y + EDGE_RAD,
           (float) (x + EDGE_RAD + ((WIDTH - EDGE_RAD * 2) * getValue())), y + HEIGHT - EDGE_RAD,
           isActive() ? Color.BLUE : Color.CYAN);
-        RenderUtils.drawString(String.valueOf(valStuff.name), x + WIDTH / 2, y + HEIGHT / 16 * 11, 14f, 1, Color.WHITE);
-        RenderUtils.drawString(String.valueOf(valStuff.value), x + WIDTH / 2, y + HEIGHT / 16 * 5, 8f, 1, Color.WHITE);
+        RenderUtils.drawString(String.valueOf(valStuff.name), x + EDGE_RAD + 2, y + HEIGHT / 16 * 13, 14f, -1, Color.WHITE);
+        RenderUtils.drawString(valStuff.min + "/" + valStuff.max, x + EDGE_RAD + 2, y + HEIGHT / 2, 8f, -1, Color.WHITE);
+        RenderUtils.drawString(String.valueOf(valStuff.value), x + EDGE_RAD + 2, y + HEIGHT / 16 * 3, 8f, -1, Color.WHITE);
         if (isActive()) {
             if (InputManager.LEFT.justPressed()) {
                 changeValue(-1);
@@ -76,6 +77,7 @@ public class SliderComp extends ValComp {
         } else if (((Number) valStuff.value).doubleValue() > valStuff.max)
             valStuff.value = valStuff.max;
         else valStuff.value = valStuff.min;
+        valStuff.value = MathUtils.roundInc(((Number) valStuff.value).doubleValue(), valStuff.step);
     }
 
     public float getChange() {

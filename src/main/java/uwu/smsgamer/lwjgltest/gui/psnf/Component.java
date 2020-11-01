@@ -12,8 +12,8 @@
 package uwu.smsgamer.lwjgltest.gui.psnf;
 
 public abstract class Component {
-    public static final float WIDTH = 75;
     public static final float HEIGHT = 50;
+    public static final float WIDTH = 100;
     public static final float ROUND = 0;
     public static final float EDGE_RAD = 2;
 

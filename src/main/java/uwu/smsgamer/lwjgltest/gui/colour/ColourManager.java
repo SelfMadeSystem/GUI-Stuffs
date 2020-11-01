@@ -175,9 +175,9 @@ public class ColourManager {
         }
 
         hsv0.h = MathUtils.wrapAngle180(hsv0.h + 45) + 180;
-        RenderUtils.drawRect(-size / 4F * 3F, 0, -size / 2F, -size / 2F, hsv0.toColor());
+        RenderUtils.drawRect(-size / 2F, size / 4F * 3F, 0, size / 2F, hsv0.toColor());
 
-        if (mouseX >= -size / 4F && mouseX <= 0 && click && mouseY >= 0 && mouseY <= size / 2F) {
+        if (mouseX >= 0 && mouseX <= size / 2F && click && mouseY >= size && mouseY <= size / 4F * 5F) {
             hsv = hsv0.clone();
             clicked = true;
         }
@@ -191,17 +191,17 @@ public class ColourManager {
         }
 
         hsv0.h = MathUtils.wrapAngle180(hsv0.h + 45) + 180;
-        RenderUtils.drawRect(size / 2F, 0, size / 4F * 3F, -size / 2F, hsv0.toColor());
+        RenderUtils.drawRect(-size / 2F, -size / 4F * 3F, size / 2F, -size / 2F, hsv0.toColor());
 
-        if (mouseX >= size && mouseX <= size / 4F * 5F && click && mouseY >= 0 && mouseY <= size / 2F) {
+        if (mouseX >= 0 && mouseX <= size && click && mouseY >= -size / 4F && mouseY <= 0) {
             hsv = hsv0.clone();
             clicked = true;
         }
 
         hsv0.h = MathUtils.wrapAngle180(hsv0.h + 45) + 180;
-        RenderUtils.drawRect(-size / 2F, size / 4F * 3F, 0, size / 2F, hsv0.toColor());
+        RenderUtils.drawRect(-size / 4F * 3F, 0, -size / 2F, -size / 2F, hsv0.toColor());
 
-        if (mouseX >= 0 && mouseX <= size / 2F && click && mouseY >= size && mouseY <= size / 4F * 5F) {
+        if (mouseX >= -size / 4F && mouseX <= 0 && click && mouseY >= 0 && mouseY <= size / 2F) {
             hsv = hsv0.clone();
             clicked = true;
         }
@@ -215,9 +215,9 @@ public class ColourManager {
         }
 
         hsv0.h = MathUtils.wrapAngle180(hsv0.h + 45) + 180;
-        RenderUtils.drawRect(-size / 2F, -size / 4F * 3F, size / 2F, -size / 2F, hsv0.toColor());
+        RenderUtils.drawRect(size / 2F, 0, size / 4F * 3F, -size / 2F, hsv0.toColor());
 
-        if (mouseX >= 0 && mouseX <= size && click && mouseY >= -size / 4F && mouseY <= 0) {
+        if (mouseX >= size && mouseX <= size / 4F * 5F && click && mouseY >= 0 && mouseY <= size / 2F) {
             hsv = hsv0.clone();
             clicked = true;
         }

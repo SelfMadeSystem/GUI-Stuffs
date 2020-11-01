@@ -92,7 +92,7 @@ public class Window {
     }
 
     private void render() {
-        renderColour();
+        renderPSNF();
     }
 
     private void renderColour() {

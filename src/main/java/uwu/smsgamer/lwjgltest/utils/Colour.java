@@ -99,6 +99,58 @@ public class Colour {
         }
     }
 
+    public static class CMY {
+        public double c;       // a fraction between 0 and 1
+        public double m;       // a fraction between 0 and 1
+        public double y;       // a fraction between 0 and 1
+
+        public CMY() {
+        }
+
+        public CMY(double c, double m, double y) {
+            this.c = c;
+            this.m = m;
+            this.y = y;
+        }
+
+        public CMY(RGB rgb) {
+            c = 1 - rgb.r;
+            m = 1 - rgb.g;
+            y = 1 - rgb.b;
+        }
+
+        public CMY(HSV hsv) {
+            this(hsv2rgb(hsv));
+        }
+
+        public RGB toRGB() {
+            return new RGB(1 - c, 1 - m, 1 - y);
+        }
+
+        public HSV toHSV() {
+            return rgb2hsv(toRGB());
+        }
+
+        public Color toColor() {
+            return toRGB().toColor();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            CMY cmy = (CMY) o;
+            return MathUtils.approxEquals(cmy.c, c, 0.002) &&
+              MathUtils.approxEquals(cmy.m, m, 0.002) &&
+              MathUtils.approxEquals(cmy.y, y, 0.002);
+        }
+
+        @Override
+        public CMY clone() {
+            return new CMY(c, m, y);
+        }
+    }
+
     public static HSV rgb2hsv(RGB in) {
         HSV out = new HSV();
         double min, max, delta;

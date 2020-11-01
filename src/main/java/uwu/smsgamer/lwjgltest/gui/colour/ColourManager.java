@@ -28,7 +28,7 @@ public class ColourManager {
     // 4 R
     // 5 G
     // 6 B
-    public int centerSelect = 6;
+    public int centerSelect = 1;
     public HSV hsv;
     public RGB rgb;
     public HSVSlider hSlider = new HSVSlider(0);
@@ -56,7 +56,7 @@ public class ColourManager {
     }
 
     public ColourManager() {
-        setRGB(new RGB(0.5, 0.5, 1));
+        setRGB(new RGB(1, 0, 0));
     }
 
     public void render() {
@@ -152,7 +152,7 @@ public class ColourManager {
                         rgb0.g = (float) y / size;
                         break;
                 }
-                if (centerSelect <= 3 ? hsv0.equals(hsv) : rgb0.equals(rgb)) {
+                if (centerSelect > 0 && (centerSelect <= 3 ? hsv0.equals(hsv) : rgb0.equals(rgb))) {
                     RenderUtils.drawRect(x - size / 2F, y - size / 2F, x + 1 - size / 2F,
                       y + 1 - size / 2F, cursor);
                 } else {

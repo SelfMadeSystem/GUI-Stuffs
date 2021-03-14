@@ -261,8 +261,6 @@ public class RenderUtils {
         }
         Shape outline = vector.getOutline();
         PathIterator pathIterator = outline.getPathIterator(new AffineTransform());
-//        glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
-//        glBegin(GL_LINE_LOOP);
         glEnable(GL_STENCIL_TEST);
         glClearStencil(0);
         glClear(GL_STENCIL_BUFFER_BIT);
@@ -289,23 +287,6 @@ public class RenderUtils {
                       Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y)));
                     glVertex2f(Math.min(max[0], Math.max(min[0], points[2] * sizeX + x)),
                       Math.min(max[1], Math.max(min[1], -points[3] * sizeY + y)));
-//                    glVertex2f(Math.min(max[0], Math.max(min[0], points[4] * sizeX + x)),
-//                      Math.min(max[1], Math.max(min[1], -points[5] * sizeY + y)));
-                    //glVertex2f(points[4] / max * size + x, -points[5] / max * size + y);
-                    //eps.curveto(points[0] + x, points[1] + y, points[2] + x, points[3] + y, points[4] + x, points[5] + y);
-//                    Vec3f[] vecs = new Vec3f[points.length/2];
-//                    float last = 0;
-//                    for (int i = 0; i < points.length; i++) {
-//                        if (i % 2 == 1) {
-//                            vecs[i/2] = new Vec3f(last * sizeX + x, points[i] / div * sizeY + y);
-//                        } else last = points[i] / div;
-//                    }
-//                    bezierPoses(new Vec3f[]{new Vec3f(Math.min(max[0], Math.max(min[0], points[0] * sizeX + x)),
-//                      Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y))),
-//                      new Vec3f(Math.min(max[0], Math.max(min[0], points[2] * sizeX + x)),
-//                        Math.min(max[1], Math.max(min[1], -points[3] * sizeY + y))),
-//                      new Vec3f(Math.min(max[0], Math.max(min[0], points[4] * sizeX + x)),
-//                        Math.min(max[1], Math.max(min[1], -points[5] * sizeY + y)))});
                     break;
                 }
                 case PathIterator.SEG_CLOSE: {

@@ -125,7 +125,7 @@ public class Window {
     }
 
     private void render() {
-        renderStencils();
+        renderText();
     }
 
     private void renderBezier() {
@@ -134,5 +134,9 @@ public class Window {
 
     private void renderStencils() {
         StencilTests.render();
+    }
+
+    private void renderText() {
+        TextTest.render();
     }
 }

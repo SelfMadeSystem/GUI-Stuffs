@@ -48,7 +48,7 @@ public class RenderUtils {
         Vec3f prevPoint = bezierPoints[0];
         for (int i = 1; i < bezierPoints.length; i++) {
             Vec3f point = bezierPoints[i];
-            RenderUtils.placePoses(point, prevPoint);
+            RenderUtils.placePoses(prevPoint, point);
             prevPoint = point;
         }
     }

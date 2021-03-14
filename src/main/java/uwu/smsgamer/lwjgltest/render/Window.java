@@ -125,7 +125,7 @@ public class Window {
     }
 
     private void render() {
-        renderBezier();
+        renderRing();
     }
 
     private void renderBezier() {

@@ -11,6 +11,7 @@ package uwu.smsgamer.lwjgltest.utils;
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.*;
+import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -32,6 +33,35 @@ public class RenderUtils {
         glVertex2f(x1, y1);
         glVertex2f(x2, y2);
         glEnd();
+    }
+
+    public static void placePoses(Vec3f p1, Vec3f p2) {
+        placePoses(p1.x, p1.y, p2.x, p2.y);
+    }
+
+    public static void placePoses(float x1, float y1, float x2, float y2) {
+        glVertex2f(x1, y1);
+        glVertex2f(x2, y2);
+    }
+
+    public static void bezierPoses(Vec3f[] pts) {
+        Vec3f[] bezierPoints = MathUtils.getBezierPoints(pts);
+        Vec3f prevPoint = bezierPoints[0];
+        for (int i = 1; i < bezierPoints.length; i++) {
+            Vec3f point = bezierPoints[i];
+            RenderUtils.placePoses(point, prevPoint);
+            prevPoint = point;
+        }
+    }
+
+    public static void drawBezier(Vec3f[] pts, Color color) {
+        Vec3f[] bezierPoints = MathUtils.getBezierPoints(pts);
+        Vec3f prevPoint = bezierPoints[0];
+        for (int i = 1; i < bezierPoints.length; i++) {
+            Vec3f point = bezierPoints[i];
+            RenderUtils.drawLine(point, prevPoint, color);
+            prevPoint = point;
+        }
     }
 
     public static void drawCircle(float x, float y, float r, float ir, float sta, float spa, float ext, Color color) {
@@ -206,7 +236,7 @@ public class RenderUtils {
     }
 
     /**
-     * Draws shit
+     * Draws text. Todo: I think ik what I'm doing now. Make an entire class for this shit.
      *
      * @param text The text to draw
      * @param x the X position on the screen
@@ -219,8 +249,8 @@ public class RenderUtils {
      * @param color the colour of the text
      */
     public static void drawString0(String text, float x, float y, float[] min, float[] max, float sizeX, float sizeY, int anchor, Color color) {
-        Font font = new Font("Monospaced", Font.PLAIN, 1);
-        GlyphVector vector = font.createGlyphVector(new FontRenderContext(new AffineTransform(), false, false), text);
+        Font font = new Font("consolas", Font.PLAIN, 1);
+        GlyphVector vector = font.createGlyphVector(new FontRenderContext(new AffineTransform(), true, true), text);
         Rectangle2D rect = vector.getVisualBounds();
         y -= rect.getHeight() / 2 * sizeY;
         switch (anchor) {
@@ -237,6 +267,7 @@ public class RenderUtils {
         float[] points = new float[6];
         while (!pathIterator.isDone()) {
             int code = pathIterator.currentSegment(points);
+            System.out.println(code + ":" + points.length + ":" + Arrays.toString(points));
             switch (code) {
                 case PathIterator.SEG_LINETO:
                 case PathIterator.SEG_MOVETO: {
@@ -249,8 +280,23 @@ public class RenderUtils {
                       Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y)));
                     glVertex2f(Math.min(max[0], Math.max(min[0], points[2] * sizeX + x)),
                       Math.min(max[1], Math.max(min[1], -points[3] * sizeY + y)));
+//                    glVertex2f(Math.min(max[0], Math.max(min[0], points[4] * sizeX + x)),
+//                      Math.min(max[1], Math.max(min[1], -points[5] * sizeY + y)));
                     //glVertex2f(points[4] / max * size + x, -points[5] / max * size + y);
                     //eps.curveto(points[0] + x, points[1] + y, points[2] + x, points[3] + y, points[4] + x, points[5] + y);
+//                    Vec3f[] vecs = new Vec3f[points.length/2];
+//                    float last = 0;
+//                    for (int i = 0; i < points.length; i++) {
+//                        if (i % 2 == 1) {
+//                            vecs[i/2] = new Vec3f(last * sizeX + x, points[i] / div * sizeY + y);
+//                        } else last = points[i] / div;
+//                    }
+//                    bezierPoses(new Vec3f[]{new Vec3f(Math.min(max[0], Math.max(min[0], points[0] * sizeX + x)),
+//                      Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y))),
+//                      new Vec3f(Math.min(max[0], Math.max(min[0], points[2] * sizeX + x)),
+//                        Math.min(max[1], Math.max(min[1], -points[3] * sizeY + y))),
+//                      new Vec3f(Math.min(max[0], Math.max(min[0], points[4] * sizeX + x)),
+//                        Math.min(max[1], Math.max(min[1], -points[5] * sizeY + y)))});
                     break;
                 }
                 case PathIterator.SEG_CLOSE: {

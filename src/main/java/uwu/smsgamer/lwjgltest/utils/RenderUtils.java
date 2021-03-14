@@ -18,11 +18,20 @@ public class RenderUtils {
     //1.2 for radial gui (bc reasons)
     //250 for box
     public static float div = 250f;
+
 //    public static float div = 1.2f;
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
+
+    public static void drawLine(Vec3f p1, Vec3f p2, Color color) {
+        drawLine(p1.x, p1.y, p2.x, p2.y, color);
+    }
+
+    public static void drawLine(float x1, float y1, float x2, float y2, Color color) {
+        glBegin(GL_LINES);
+        glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
+        glVertex2f(x1, y1);
+        glVertex2f(x2, y2);
+        glEnd();
     }
 
     public static void drawCircle(float x, float y, float r, float ir, float sta, float spa, float ext, Color color) {

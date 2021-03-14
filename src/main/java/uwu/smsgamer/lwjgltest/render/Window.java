@@ -18,7 +18,8 @@ import uwu.smsgamer.lwjgltest.gui.colour.ColourManager;
 import uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager;
 import uwu.smsgamer.lwjgltest.gui.radial.Ring;
 import uwu.smsgamer.lwjgltest.input.*;
-import uwu.smsgamer.lwjgltest.utils.RenderUtils;
+import uwu.smsgamer.lwjgltest.tests.BezierCurves;
+import uwu.smsgamer.lwjgltest.utils.*;
 
 import java.awt.*;
 
@@ -91,9 +92,9 @@ public class Window {
         glfwTerminate();
     }
 
-    private void render() {
-        renderPSNF();
-    }
+    private Vec3f[] points = {new Vec3f(0, 0.75F), new Vec3f(-0.3333F, 0.5F),
+      new Vec3f(0, -1), new Vec3f(-1, 0),
+      new Vec3f(-1, 1),};
 
     private void renderColour() {
         RenderUtils.div = 250f;
@@ -121,5 +122,13 @@ public class Window {
         Ring.getCurrentRing().render();
         if (Ring.previousRing != null)
             Ring.previousRing.renderStuff();
+    }
+
+    private void render() {
+        renderBezier();
+    }
+
+    private void renderBezier() {
+        BezierCurves.render(points);
     }
 }

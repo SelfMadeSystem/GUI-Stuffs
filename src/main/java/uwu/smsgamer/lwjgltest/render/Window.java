@@ -18,7 +18,7 @@ import uwu.smsgamer.lwjgltest.gui.colour.ColourManager;
 import uwu.smsgamer.lwjgltest.gui.psnf.PSNFManager;
 import uwu.smsgamer.lwjgltest.gui.radial.Ring;
 import uwu.smsgamer.lwjgltest.input.*;
-import uwu.smsgamer.lwjgltest.tests.BezierCurves;
+import uwu.smsgamer.lwjgltest.tests.*;
 import uwu.smsgamer.lwjgltest.utils.*;
 
 import java.awt.*;
@@ -125,10 +125,14 @@ public class Window {
     }
 
     private void render() {
-        renderRing();
+        renderStencils();
     }
 
     private void renderBezier() {
         BezierCurves.render(points);
+    }
+
+    private void renderStencils() {
+        StencilTests.render();
     }
 }

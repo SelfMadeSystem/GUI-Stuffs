@@ -11,7 +11,6 @@ package uwu.smsgamer.lwjgltest.utils;
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.*;
-import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -249,7 +248,7 @@ public class RenderUtils {
      * @param color the colour of the text
      */
     public static void drawString0(String text, float x, float y, float[] min, float[] max, float sizeX, float sizeY, int anchor, Color color) {
-        Font font = new Font("consolas", Font.PLAIN, 1);
+        Font font = new Font("richardson brand accelerator", Font.PLAIN, 1);
         GlyphVector vector = font.createGlyphVector(new FontRenderContext(new AffineTransform(), true, true), text);
         Rectangle2D rect = vector.getVisualBounds();
         y -= rect.getHeight() / 2 * sizeY;
@@ -262,12 +261,22 @@ public class RenderUtils {
         }
         Shape outline = vector.getOutline();
         PathIterator pathIterator = outline.getPathIterator(new AffineTransform());
-        glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
-        glBegin(GL_LINE_LOOP);
+//        glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
+//        glBegin(GL_LINE_LOOP);
+        glEnable(GL_STENCIL_TEST);
+        glClearStencil(0);
+        glClear(GL_STENCIL_BUFFER_BIT);
+
+        glColorMask(false, false, false, false); // Do not draw any pixels on the back buffer
+        glEnable(GL_STENCIL_TEST); // Enables testing AND writing functionalities
+        glStencilFunc(GL_ALWAYS, 1, 0xFF); // Do not test the current value in the stencil buffer, always accept any value on there for drawing
+        glStencilMask(0xFF);
+        glStencilOp(GL_REPLACE, GL_REPLACE, GL_INCR); // Make every test succeed
+
+        glBegin(GL_POLYGON);
         float[] points = new float[6];
         while (!pathIterator.isDone()) {
             int code = pathIterator.currentSegment(points);
-            System.out.println(code + ":" + points.length + ":" + Arrays.toString(points));
             switch (code) {
                 case PathIterator.SEG_LINETO:
                 case PathIterator.SEG_MOVETO: {
@@ -301,7 +310,7 @@ public class RenderUtils {
                 }
                 case PathIterator.SEG_CLOSE: {
                     glEnd();
-                    glBegin(GL_LINE_LOOP);
+                    glBegin(GL_POLYGON);
                     break;
                 }
                 default:
@@ -310,5 +319,16 @@ public class RenderUtils {
             pathIterator.next();
         }
         glEnd();
+
+        glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+        glColorMask(true, true, true, true);
+
+        for (int i = 0; i < 3; i++) {
+            glStencilFunc(GL_EQUAL, i * 2 + 1, 0xFF);
+
+            RenderUtils.drawRectUnDiv(-1, -1, 1, 1, color);
+        }
+
+        glDisable(GL_STENCIL_TEST);
     }
 }

@@ -273,20 +273,40 @@ public class RenderUtils {
 
         glBegin(GL_POLYGON);
         float[] points = new float[6];
+        Vec3f current = new Vec3f();
         while (!pathIterator.isDone()) {
             int code = pathIterator.currentSegment(points);
             switch (code) {
-                case PathIterator.SEG_LINETO:
                 case PathIterator.SEG_MOVETO: {
-                    glVertex2f(Math.min(max[0], Math.max(min[0], points[0] * sizeX + x)),
+                    glEnd();
+                    glBegin(GL_POLYGON);
+                }
+                case PathIterator.SEG_LINETO: {
+                    current = new Vec3f(Math.min(max[0], Math.max(min[0], points[0] * sizeX + x)),
                       Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y)));
+                    glVertex2f(current.x, current.y);
                     break;
                 }
                 case PathIterator.SEG_QUADTO: {
-                    glVertex2f(Math.min(max[0], Math.max(min[0], points[0] * sizeX + x)),
-                      Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y)));
-                    glVertex2f(Math.min(max[0], Math.max(min[0], points[2] * sizeX + x)),
+                    Vec3f last = current;
+                    current = new Vec3f(Math.min(max[0], Math.max(min[0], points[2] * sizeX + x)),
                       Math.min(max[1], Math.max(min[1], -points[3] * sizeY + y)));
+
+                    RenderUtils.bezierPoses(new Vec3f[]{last, new Vec3f(Math.min(max[0], Math.max(min[0], points[0] * sizeX + x)),
+                      Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y))),
+                      current});
+                    break;
+                }
+                case PathIterator.SEG_CUBICTO: {
+                    Vec3f last = current;
+                    current = new Vec3f(Math.min(max[0], Math.max(min[0], points[4] * sizeX + x)),
+                      Math.min(max[1], Math.max(min[1], -points[5] * sizeY + y)));
+
+                    RenderUtils.bezierPoses(new Vec3f[]{last, new Vec3f(Math.min(max[0], Math.max(min[0], points[0] * sizeX + x)),
+                      Math.min(max[1], Math.max(min[1], -points[1] * sizeY + y))),
+                      new Vec3f(Math.min(max[0], Math.max(min[0], points[2] * sizeX + x)),
+                        Math.min(max[1], Math.max(min[1], -points[3] * sizeY + y))),
+                      current});
                     break;
                 }
                 case PathIterator.SEG_CLOSE: {
@@ -304,7 +324,7 @@ public class RenderUtils {
         glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
         glColorMask(true, true, true, true);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 7; i++) {
             glStencilFunc(GL_EQUAL, i * 2 + 1, 0xFF);
 
             RenderUtils.drawRectUnDiv(-1, -1, 1, 1, color);
